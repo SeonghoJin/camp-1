@@ -1,7 +1,5 @@
-package com.example.myapplication;
+package com.example.myapplication.phone;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,13 +12,13 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplication.R;
 import com.example.myapplication.phone.ConcretePhoneNumberDatabase;
+import com.example.myapplication.phone.PhoneCreateDialog;
 import com.example.myapplication.phone.PhoneNumber;
 import com.example.myapplication.phone.PhoneNumberDao;
-import com.example.myapplication.phone.PhoneNumberDatabase;
 import com.example.myapplication.phone.PhoneNumberViewAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class PhoneFragment extends Fragment {
@@ -51,9 +49,8 @@ public class PhoneFragment extends Fragment {
         onCreateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setView(R.layout.phone_number_insert_view)
-                        .create().show();
+                PhoneCreateDialog phoneCreateDialog = new PhoneCreateDialog(getContext());
+                phoneCreateDialog.show(new PhoneCreateCallback(phoneNumberViewAdapter, phoneNumberDao));
             }
         });
         return rootView;

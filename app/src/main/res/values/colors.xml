@@ -11,4 +11,17 @@
     <color name="camp_color_2">#4c5870</color>
     <color name="camp_color_3">#a2a9af</color>
     <color name="camp_color_4">#ebedec</color>
+    <color name="transparent">#00000000</color>
+    <color name="transparent95">#0D000000</color>
+    <color name="transparent90">#1A000000</color>
+    <color name="transparent85">#26000000</color>
+    <color name="transparent80">#33000000</color>
+    <color name="transparent75">#40000000</color>
+    <color name="lite_blue">#50BCDF</color>
+    <color name="safari">#007AFF</color>
+    <color name="iphone_background">#EFEFF4</color>
+    <color name="iphone_settings">#8E8E93</color>
+    <color name="iphone_links">#007AFF</color>
+    <color name="iphone_lines">#CECED2</color>
+    <color name="iphone_calendar">#FF3B30</color>
 </resources>

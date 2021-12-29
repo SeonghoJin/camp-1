@@ -5,36 +5,47 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/camp_color_1">
+    android:background="@color/iphone_background">
 
-    <LinearLayout
+    <ImageButton
+        android:id="@+id/create_phone_number_button"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_gravity="end"
+        android:background="@color/transparent"
+        android:layout_margin="10dp"
+        android:src="@drawable/plus4"
+        >
+    </ImageButton>
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/phone_fragment_header"
+        android:layout_margin="10dp"
+        >
+
         <TextView
             android:id="@+id/textView"
+            android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/camp_color_4"
             android:text="연락처"
-            android:textSize="40sp" />
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="25dp"
+            android:layout_marginBottom="10dp"
+            />
 
-        <Button
-            android:id="@+id/create_phone_number_button"
-            android:layout_width="40dp"
-            android:layout_height="40dp">
-
-        </Button>
-    </LinearLayout>
-
+    </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/camp_color_1"
-        >
-    </androidx.recyclerview.widget.RecyclerView>
-
+        android:background="@drawable/recycler_view"
+        android:layout_margin="10dp"
+        ></androidx.recyclerview.widget.RecyclerView>
 
 
 </LinearLayout>

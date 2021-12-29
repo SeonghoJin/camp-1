@@ -1,39 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:layout_height="100px"
+<com.chauthai.swipereveallayout.SwipeRevealLayout android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@color/camp_color_2"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/phone_number_item"
+    android:layout_margin="1dp"
+    android:orientation="vertical"
+    app:dragEdge="right"
+    app:mode="same_level"
+    android:id="@+id/phone_item_layout"
     >
 
-    <TextView
-        android:id="@+id/phone_number"
+    <RelativeLayout
+        android:layout_width="50dp"
         android:layout_height="match_parent"
-        android:layout_weight="2"
-        android:textColor="@color/camp_color_4" android:layout_width="0px">
-    </TextView>
-
-    <TextView
-        android:id="@+id/first_name"
-        android:layout_width="0px"
-        android:layout_height="match_parent"
-        android:layout_weight="2"
+        android:orientation="horizontal"
+        android:id="@+id/swipe_append_layout"
+        android:background="@drawable/phone_number_item_swipe"
         >
-    </TextView>
 
-    <TextView
-        android:id="@+id/last_name"
-        android:layout_width="0px"
-        android:layout_height="match_parent"
-        android:layout_weight="2"
-        >
-    </TextView>
+        <ImageButton
+            android:id="@+id/phone_number_remove_button"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:background="@drawable/trash"
+            android:layout_gravity="center"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+             />
 
-    <Button
-        android:id="@+id/remove_button"
-        android:layout_width="0px"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="X" />
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="10dp"
+            >
 
-</LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#000000"
+                android:text="이름"
+                >
+            </TextView>
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_margin="3dp"
+                android:textAlignment="center"
+                android:textColor="@color/iphone_links"
+                android:text="asd"
+                >
+            </TextView>
+        </LinearLayout>
+    </LinearLayout>
+
+</com.chauthai.swipereveallayout.SwipeRevealLayout>

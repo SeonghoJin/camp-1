@@ -46,13 +46,22 @@ public class PhoneFragment extends Fragment {
         phoneNumberViewAdapter = new PhoneNumberViewAdapter(phoneNumbers);
         recyclerView.setAdapter(phoneNumberViewAdapter);
         recyclerView.setLayoutManager(layoutManager);
+
         onCreateButton = rootView.findViewById(R.id.create_phone_number_button);
-        onCreateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                PhoneCreateDialog phoneCreateDialog = new PhoneCreateDialog(getContext());
-                phoneCreateDialog.show(new PhoneCreateCallback(phoneNumberViewAdapter, phoneNumberDao));
-            }
+        onCreateButton.setOnClickListener(view -> {
+            PhoneCreateDialog phoneCreateDialog = new PhoneCreateDialog(getContext());
+            phoneCreateDialog.setOnComplete(
+                    (String number, String lastName, String firstName) -> {
+                        PhoneNumber phoneNumber = new PhoneNumber();
+                        phoneNumber.phoneNumber = number;
+                        phoneNumber.lastName = lastName;
+                        phoneNumber.firstName = firstName;
+                        phoneNumberViewAdapter.insert(phoneNumber);
+                        phoneNumberDao.insert(phoneNumber);
+                        phoneNumberViewAdapter.notifyDataSetChanged();
+                    }
+            );
+            phoneCreateDialog.show();
         });
         return rootView;
     }

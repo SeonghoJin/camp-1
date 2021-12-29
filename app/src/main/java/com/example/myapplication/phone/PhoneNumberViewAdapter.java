@@ -4,10 +4,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chauthai.swipereveallayout.SwipeRevealLayout;
+import com.chauthai.swipereveallayout.ViewBinderHelper;
 import com.example.myapplication.R;
 
 import java.util.List;
@@ -15,54 +19,12 @@ import java.util.List;
 public class PhoneNumberViewAdapter extends RecyclerView.Adapter<PhoneNumberViewAdapter.ViewHolder> {
 
     private List<PhoneNumber> phoneNumbers;
+    private final ViewBinderHelper viewBinderHelper = new ViewBinderHelper();
 
     public PhoneNumberViewAdapter(List<PhoneNumber> phoneNumbers) {
         this.phoneNumbers = phoneNumbers;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        private final TextView phone_number;
-        private final TextView first_name;
-        private final TextView last_name;
-        private final Button removeButton;
-
-        public ViewHolder(View view) {
-            super(view);
-            phone_number = (TextView) view.findViewById(R.id.phone_number);
-            first_name = (TextView) view.findViewById(R.id.first_name);
-            last_name = (TextView) view.findViewById(R.id.last_name);
-            removeButton = (Button) view.findViewById(R.id.remove_button);
-
-            this.removeButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    delete(getAdapterPosition());
-                }
-            });
-        }
-
-        public TextView getPhoneNumberTextView(){
-            return phone_number;
-        }
-
-        public TextView getFirstNameTextView(){
-            return first_name;
-        }
-
-        public TextView getLastNameTextView(){
-            return last_name;
-        }
-
-        private void delete(int position){
-            try {
-                phoneNumbers.remove(position);
-                notifyItemRemoved(position);
-            } catch (IndexOutOfBoundsException ex) {
-                ex.printStackTrace();
-            }
-        }
-
-    }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
@@ -74,9 +36,12 @@ public class PhoneNumberViewAdapter extends RecyclerView.Adapter<PhoneNumberView
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-        viewHolder.getPhoneNumberTextView().setText(phoneNumbers.get(position).phoneNumber);
-        viewHolder.getFirstNameTextView().setText(phoneNumbers.get(position).firstName);
-        viewHolder.getLastNameTextView().setText(phoneNumbers.get(position).lastName);
+        PhoneNumber currentPhoneNumber = phoneNumbers.get(position);
+        String name = currentPhoneNumber.lastName + currentPhoneNumber.firstName;
+        viewBinderHelper.setOpenOnlyOne(true);
+        viewBinderHelper.bind(viewHolder.swipeRevealLayout, name);
+        viewBinderHelper.closeLayout(name);
+        viewHolder.bindNameTextView(name);
     }
 
     @Override
@@ -86,6 +51,49 @@ public class PhoneNumberViewAdapter extends RecyclerView.Adapter<PhoneNumberView
 
     public void insert(PhoneNumber phoneNumber){
         this.phoneNumbers.add(phoneNumber);
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
+
+        private final TextView name;
+        private SwipeRevealLayout swipeRevealLayout;
+        private RelativeLayout swipeAppendLayout;
+        private ImageButton removeButton;
+        public ViewHolder(View view) {
+            super(view);
+            name = (TextView) view.findViewById(R.id.name);
+            swipeRevealLayout = view.findViewById(R.id.phone_item_layout);
+            swipeAppendLayout = view.findViewById(R.id.swipe_append_layout);
+            removeButton = view.findViewById(R.id.phone_number_remove_button);
+
+            swipeAppendLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    delete(getAdapterPosition());
+                }
+            });
+
+            removeButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    delete(getAdapterPosition());
+                }
+            });
+        }
+
+        public void bindNameTextView(String name){
+            this.name.setText(name);
+        }
+
+        private void delete(int position){
+            try {
+                phoneNumbers.remove(position);
+                notifyItemRemoved(position);
+            } catch (IndexOutOfBoundsException ex) {
+                ex.printStackTrace();
+            }
+        }
+
     }
 
 }

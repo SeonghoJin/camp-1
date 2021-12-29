@@ -13,9 +13,12 @@ public interface PhoneNumberDao {
     List<PhoneNumber> getAll();
 
     @Insert
-    void insertAll(PhoneNumber[] phoneNumbers);
+    void insert(PhoneNumber phoneNumbers);
 
     @Delete
     void delete(PhoneNumber phoneNumber);
+
+    @Query("DELETE FROM PhoneNumber")
+    void deletePhoneNumberTable();
 
 }

@@ -50,7 +50,7 @@ public class GalleryImageAdapter extends BaseAdapter {
         }else{
 
             Bitmap bmp = BitmapFactory.decodeResource(context.getResources(), imageIDs[i]); //to save memory
-            bmp = Bitmap.createScaledBitmap(bmp, 300,300,false);
+            bmp = Bitmap.createScaledBitmap(bmp, 50,50,false);
             imageView = new ImageView(context);
             imageView.setLayoutParams(new GridView.LayoutParams(rowWidth, rowWidth));
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);

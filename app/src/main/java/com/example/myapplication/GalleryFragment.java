@@ -14,6 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import java.util.Arrays;
+
 public class GalleryFragment extends Fragment {
 
 
@@ -66,10 +68,18 @@ public class GalleryFragment extends Fragment {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String[] strArray = new String[imageIDs.length];
+
+                for (int j = 0; j < imageIDs.length; j++) {
+                    strArray[j] = String.valueOf(imageIDs[j]);
+                }
+
+
                 Intent intent = new Intent(getActivity(), ImageActivity.class);
                 intent.putExtra("ImageValue", imageIDs[i].toString());
-
-
+                intent.putExtra("ImageNum", Integer.toString(i));
+//                intent.putExtra("ImageIDs", Arrays.toString(imageIDs));
+                intent.putExtra("ImageIDs", strArray);
                 startActivity(intent);
             }
         });

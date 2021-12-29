@@ -62,11 +62,6 @@ public class PhoneNumberViewAdapter extends RecyclerView.Adapter<PhoneNumberView
             }
         }
 
-        private void add(int position, PhoneNumber phoneNumber) {
-            phoneNumbers.add(position, phoneNumber);
-            notifyItemInserted(position);
-        }
-
     }
 
     @Override
@@ -89,10 +84,8 @@ public class PhoneNumberViewAdapter extends RecyclerView.Adapter<PhoneNumberView
         return phoneNumbers.size();
     }
 
-    private void removeItem(int position){
-        phoneNumbers.remove(position);
-        notifyItemChanged(position);
-        notifyItemRangeChanged(position, 1);
+    public void insert(PhoneNumber phoneNumber){
+        this.phoneNumbers.add(phoneNumber);
     }
 
 }

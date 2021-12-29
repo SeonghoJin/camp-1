@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <TextView
-        android:text="사용자 정보 "
+        android:text="사용자 정보"
         android:layout_width="match_parent"
         android:layout_height="64dp"
         android:scaleType="center"
         android:background="#FFFFBB33"
         android:contentDescription="@string/app_name" />
     <EditText
-        android:id="@+id/username"
+        android:id="@+id/input_phone_number"
         android:inputType="textEmailAddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,8 +21,7 @@
         android:layout_marginBottom="4dp"
          />
     <EditText
-        android:id="@+id/password"
-        android:inputType="textPassword"
+        android:id="@+id/input_first_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
@@ -31,4 +30,21 @@
         android:layout_marginBottom="16dp"
         android:fontFamily="sans-serif"
         />
+    <EditText
+        android:id="@+id/input_last_name"
+        android:layout_marginTop="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="sans-serif"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+    </EditText>
+
+    <Button
+        android:id="@+id/on_create_phone_number_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Button" />
 </LinearLayout>

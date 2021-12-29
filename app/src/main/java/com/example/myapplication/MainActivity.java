@@ -5,8 +5,6 @@ import androidx.fragment.app.FragmentActivity;
 
 import android.os.Bundle;
 
-import com.example.myapplication.PhoneFragment;
-import com.example.myapplication.R;
 import com.google.android.material.tabs.TabLayout;
 
 public class MainActivity extends FragmentActivity {

@@ -7,4 +7,8 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="camp_color_1">#3d3d3b</color>
+    <color name="camp_color_2">#4c5870</color>
+    <color name="camp_color_3">#a2a9af</color>
+    <color name="camp_color_4">#ebedec</color>
 </resources>

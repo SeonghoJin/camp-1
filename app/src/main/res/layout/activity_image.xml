@@ -1,39 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:foregroundTint="#FFFFFF"
+    android:foregroundTint="@color/iphone_background"
     android:orientation="vertical"
-    tools:context=".ImageActivity">
+    tools:context=".ImageActivity"
+    android:weightSum="30"
+    >
 
-    <Button
-        android:id="@+id/button"
+    <TextView
+        android:id="@+id/title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@color/camp_color_3"
-        android:enabled="false" />
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:background="#F4F4F8"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:gravity="center"/>
 
-    <LinearLayout
+    <ImageView
+        android:id="@+id/gallery_image"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="0dp"
+        android:layout_weight="22"
+        />
 
-        <Gallery
-            android:id="@+id/gallery1"
+    <Gallery
+        android:id="@+id/gallery1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:background="#F4F4F8"
+        android:unselectedAlpha="4" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight ="2">
+
+        <Button
+            android:id="@+id/button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:spacing="20dp"
-            android:background="@color/camp_color_3"
-            android:unselectedAlpha="5" />
+            android:background="#F4F4F8"
+            android:enabled="false" />
 
-        <ImageView
-            android:id="@+id/gallery_image"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+        <ImageButton
+            android:id="@+id/infobutton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="end"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="20dp"
+            android:background="@color/transparent"
+            android:scaleType="fitXY"
+            android:src="@drawable/infoicon"
+            android:backgroundTint="#0036FF" />
+    </RelativeLayout>
 
-    </LinearLayout>
-</RelativeLayout>
+
+
+</LinearLayout>
 

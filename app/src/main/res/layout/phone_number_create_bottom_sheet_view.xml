@@ -110,7 +110,7 @@
             android:backgroundTint="@color/iphone_lines"
             android:maxLines="1"
             android:inputType="text"
-            android:id="@+id/input_first_name"
+            android:id="@+id/input_last_name"
             >
         </EditText>
         <EditText
@@ -121,7 +121,7 @@
             android:backgroundTint="@color/iphone_lines"
             android:maxLines="1"
             android:inputType="text"
-            android:id="@+id/input_last_name"
+            android:id="@+id/input_first_name"
             >
         </EditText>
         <EditText

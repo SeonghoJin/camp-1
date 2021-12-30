@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.activity;
 
 import android.os.Bundle;
 
@@ -8,6 +8,9 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.myapplication.GalleryFragment;
+import com.example.myapplication.GameFragment;
+import com.example.myapplication.R;
 import com.example.myapplication.phone.PhoneFragment;
 
 public class BaseActivity extends FragmentActivity {

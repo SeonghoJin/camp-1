@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:background="#FFFFFF">
+    android:background="@color/iphone_background"
+    >
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabMode="scrollable" />
+        app:tabMaxWidth="0dp"
+        app:tabGravity="fill"
+        app:tabMode="fixed"
+        app:tabIndicatorHeight="0dp"
+        android:background="@color/transparent"
+        app:tabRippleColor="@null"
+        />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager"

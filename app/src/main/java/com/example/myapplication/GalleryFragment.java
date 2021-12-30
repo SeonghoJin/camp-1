@@ -1,8 +1,13 @@
 package com.example.myapplication;
 
+import android.Manifest;
+
 import android.content.Context;
+
 import android.content.Intent;
 import android.os.Bundle;
+
+import android.provider.MediaStore;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,11 +15,13 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.view.WindowManager;
+import android.widget.ImageButton;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import java.util.Arrays;
+
 
 public class GalleryFragment extends Fragment {
 
@@ -45,11 +52,14 @@ public class GalleryFragment extends Fragment {
     protected DisplayMetrics mMetrics;
     protected Context context;
     protected GalleryImageAdapter imageAdapter;
+    protected ImageButton camerabutton;
 
 
     @Override
     public void onCreate(Bundle savedInstance) {
+
         super.onCreate(savedInstance);
+
     }
 
     @Nullable
@@ -78,13 +88,11 @@ public class GalleryFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), ImageActivity.class);
                 intent.putExtra("ImageValue", imageIDs[i].toString());
                 intent.putExtra("ImageNum", Integer.toString(i));
-//                intent.putExtra("ImageIDs", Arrays.toString(imageIDs));
                 intent.putExtra("ImageIDs", strArray);
                 startActivity(intent);
             }
         });
 
-        return rootView;
+    return rootView;
     }
-
 }

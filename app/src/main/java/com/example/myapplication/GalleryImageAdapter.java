@@ -24,7 +24,6 @@ public class GalleryImageAdapter extends BaseAdapter {
     }
     @Override
     public int getCount() {
-//            return (null ! = imageIDs) ? imageIDs.length : 0;
         return imageIDs.length;
     }
 

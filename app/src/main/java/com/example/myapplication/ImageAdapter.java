@@ -39,7 +39,7 @@ public class ImageAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         ImageView imageView = new ImageView(context);
-
+        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
         imageView.setImageResource(imageIDs[i]);
 
         imageView.setLayoutParams(new Gallery.LayoutParams(200,200 ));

@@ -6,9 +6,9 @@
     android:background="@drawable/phone_number_item"
     android:layout_margin="1dp"
     android:orientation="vertical"
+    android:id="@+id/phone_item_layout"
     app:dragEdge="right"
     app:mode="same_level"
-    android:id="@+id/phone_item_layout"
     >
 
     <LinearLayout
@@ -62,31 +62,74 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:layout_margin="10dp"
             >
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#000000"
-                android:text="이름"
-                >
-            </TextView>
+            <RelativeLayout
+                android:layout_width="50dp"
+                android:layout_height="50dp">
 
-            <TextView
-                android:id="@+id/name"
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/profile_background"
+                    android:layout_centerInParent="true"
+                    >
+                </ImageView>
+
+                <TextView
+                    android:id="@+id/default_profile_word"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:textSize="12dp"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    >
+                </TextView>
+
+                <ImageView
+                    android:id="@+id/default_profile_image"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/profile_default_image"
+                    >
+                </ImageView>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_margin="3dp"
-                android:textAlignment="center"
-                android:textColor="@color/iphone_links"
-                android:text="asd"
+                android:layout_gravity="center"
+                android:orientation="vertical"
                 >
-            </TextView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000000"
+                    android:text="이름"
+                    >
+                </TextView>
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_margin="3dp"
+                    android:textAlignment="center"
+                    android:textColor="@color/iphone_links"
+                    android:text="asd"
+                    >
+                </TextView>
+            </LinearLayout>
+
         </LinearLayout>
     </LinearLayout>
 

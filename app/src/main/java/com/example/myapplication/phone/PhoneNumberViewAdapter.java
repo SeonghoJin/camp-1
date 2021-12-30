@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -67,6 +68,8 @@ public class PhoneNumberViewAdapter extends RecyclerView.Adapter<PhoneNumberView
         private RelativeLayout removeButtonWrapper;
         private Button callButton;
         private ImageButton removeButton;
+        private ImageView defaultImage;
+        private TextView defaultWord;
         private Call call;
         public ViewHolder(View view) {
             super(view);
@@ -77,6 +80,8 @@ public class PhoneNumberViewAdapter extends RecyclerView.Adapter<PhoneNumberView
             callButton = view.findViewById(R.id.phone_number_call_button);
             removeButtonWrapper = view.findViewById(R.id.phone_number_remove_button_wrapper);
             removeButton = view.findViewById(R.id.phone_number_remove_button);
+            defaultImage = view.findViewById(R.id.default_profile_image);
+            defaultWord = view.findViewById(R.id.default_profile_word);
 
 
             callButton.setOnClickListener(new View.OnClickListener() {
@@ -101,8 +106,32 @@ public class PhoneNumberViewAdapter extends RecyclerView.Adapter<PhoneNumberView
             });
         }
 
-        public void bindNameTextView(String name){
-            this.name.setText(name);
+        public void bindNameTextView(String name) {
+            try {
+                this.name.setText(name);
+                String ellipseName = Name.toEllipseName(name);
+                System.out.println(ellipseName);
+                if(ellipseName.length() > 0){
+//                    setVisible(defaultWord);
+                    setInvisible(defaultImage);
+                    defaultWord.setText(ellipseName);
+                    return;
+                }
+//                setInvisible(defaultWord);
+                setVisible(defaultImage);
+
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+
+        }
+
+        public void setInvisible(View view){
+            view.setVisibility(View.INVISIBLE);
+        }
+
+        public void setVisible(View view){
+            view.setVisibility(View.VISIBLE);
         }
 
         public void bindCallButtonText(String call){

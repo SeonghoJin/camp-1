@@ -16,20 +16,22 @@ public class Name {
     }
 
     public String getEllipseName() throws Exception {
-        String currentName = getName();
-        if(currentName.length() == 0){
+        return Name.toEllipseName(getName());
+    }
+
+    public static String toEllipseName(String name) throws Exception  {
+        if(name.length() == 0){
             return "";
         }
-        if(currentName.length() == 1){
-            return currentName.substring(0, 1);
+        if(name.length() == 1){
+            return name.substring(0, 1);
         }
-        if(currentName.length() == 2){
-            return currentName.substring(0, 2);
+        if(name.length() == 2){
+            return name.substring(0, 2);
         }
-        if(currentName.length() > 2){
-            return currentName.substring(0, 1);
+        if(name.length() > 2){
+            return name.substring(0, 1);
         }
-
         throw new Exception("Can not execute getEllipsesName");
     }
 

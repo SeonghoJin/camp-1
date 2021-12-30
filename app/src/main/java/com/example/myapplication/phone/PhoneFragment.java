@@ -43,7 +43,7 @@ public class PhoneFragment extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.phone_fragment, container, false);
         recyclerView = rootView.findViewById(R.id.recycler_view);
         layoutManager = new LinearLayoutManager(getActivity());
-        phoneNumberViewAdapter = new PhoneNumberViewAdapter(phoneNumbers);
+        phoneNumberViewAdapter = new PhoneNumberViewAdapter(phoneNumbers, getContext());
         recyclerView.setAdapter(phoneNumberViewAdapter);
         recyclerView.setLayoutManager(layoutManager);
 

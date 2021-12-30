@@ -1,5 +1,6 @@
 package com.example.myapplication.phone;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,8 +22,10 @@ public class PhoneNumberViewAdapter extends RecyclerView.Adapter<PhoneNumberView
 
     private List<PhoneNumber> phoneNumbers;
     private final ViewBinderHelper viewBinderHelper = new ViewBinderHelper();
+    private Context context;
 
-    public PhoneNumberViewAdapter(List<PhoneNumber> phoneNumbers) {
+    public PhoneNumberViewAdapter(List<PhoneNumber> phoneNumbers, Context context) {
+        this.context = context;
         this.phoneNumbers = phoneNumbers;
     }
 
@@ -64,6 +67,7 @@ public class PhoneNumberViewAdapter extends RecyclerView.Adapter<PhoneNumberView
         private RelativeLayout removeButtonWrapper;
         private Button callButton;
         private ImageButton removeButton;
+        private Call call;
         public ViewHolder(View view) {
             super(view);
             name = (TextView) view.findViewById(R.id.name);
@@ -73,6 +77,14 @@ public class PhoneNumberViewAdapter extends RecyclerView.Adapter<PhoneNumberView
             callButton = view.findViewById(R.id.phone_number_call_button);
             removeButtonWrapper = view.findViewById(R.id.phone_number_remove_button_wrapper);
             removeButton = view.findViewById(R.id.phone_number_remove_button);
+
+
+            callButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    call.call(context);
+                }
+            });
 
             removeButtonWrapper.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -95,6 +107,7 @@ public class PhoneNumberViewAdapter extends RecyclerView.Adapter<PhoneNumberView
 
         public void bindCallButtonText(String call){
             this.callButton.setText(call);
+            this.call = new Call(call);
         }
 
         private void delete(int position){

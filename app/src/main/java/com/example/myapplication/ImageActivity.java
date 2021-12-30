@@ -18,6 +18,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Gallery;
+import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -26,15 +27,15 @@ import android.widget.TextView;
 
 import com.example.myapplication.R;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class ImageActivity extends Activity {
 
     Intent intent;
     String imageValue;
-    String[] images;
     int imageNum;
-    Integer[] imageIDs;
+    ArrayList<String> imageIDs;
 
     Gallery gallery;
     ImageView image;
@@ -50,12 +51,8 @@ public class ImageActivity extends Activity {
         intent = getIntent();
         imageValue = intent.getStringExtra("ImageValue");
         imageNum = Integer.parseInt(intent.getStringExtra("ImageNum"));
-        images = intent.getStringArrayExtra("ImageIDs");
+        imageIDs = intent.getStringArrayListExtra("ImageIDs");
 
-        imageIDs = new Integer[images.length];
-        for (int j = 0; j < images.length; j++) {
-            imageIDs[j] = Integer.parseInt(images[j]);
-        }
 
 
         gallery = (Gallery)findViewById(R.id.gallery1);
@@ -73,7 +70,11 @@ public class ImageActivity extends Activity {
         gallery.setAdapter(galleryadapter);
 
         //show selected image and set gallery's selection to the selected image.
-        image.setImageResource(imageIDs[imageNum]);
+
+        Bitmap bmp = BitmapFactory.decodeFile(imageIDs.get(imageNum)); //to save memory
+        bmp = Bitmap.createScaledBitmap(bmp, 400,400,false);
+
+        image.setImageBitmap(bmp);
         gallery.setSelection(imageNum);
         title.setText("Picture"+imageNum);
         setInfobutton(infobutton, imageNum);
@@ -81,7 +82,10 @@ public class ImageActivity extends Activity {
         gallery.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                image.setImageResource(imageIDs[i]);
+                Bitmap bmp = BitmapFactory.decodeFile(imageIDs.get(i)); //to save memory
+                bmp = Bitmap.createScaledBitmap(bmp, 400,400,false);
+                image.setImageBitmap(bmp);
+
                 title.setText("Picture"+i);
                 setInfobutton(infobutton, i);
 

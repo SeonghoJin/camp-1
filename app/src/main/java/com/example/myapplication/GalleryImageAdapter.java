@@ -12,24 +12,27 @@ import android.widget.ImageView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+
 public class GalleryImageAdapter extends BaseAdapter {
     private DisplayMetrics mMetrics;
     private Context context;
-    private Integer[] imageIDs;
+    private ArrayList<String> imageIDs;
 
-    public GalleryImageAdapter(Context context, Integer[] imageIDs, DisplayMetrics mMetrics){
+    public GalleryImageAdapter(Context context, ArrayList<String> imageIDs, DisplayMetrics mMetrics){
         this.context = context;
         this.imageIDs = imageIDs;
         this.mMetrics = mMetrics;
     }
+
     @Override
     public int getCount() {
-        return imageIDs.length;
+        return imageIDs.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return imageIDs[i];
+        return imageIDs.get(i);
     }
 
     @Override
@@ -48,24 +51,18 @@ public class GalleryImageAdapter extends BaseAdapter {
             imageView = (ImageView)convertView;
         }else{
 
-            Bitmap bmp = BitmapFactory.decodeResource(context.getResources(), imageIDs[i]); //to save memory
-            bmp = Bitmap.createScaledBitmap(bmp, 50,50,false);
+            Bitmap bmp = BitmapFactory.decodeFile(imageIDs.get(i)); //to save memory
+            bmp = Bitmap.createScaledBitmap(bmp, 400,400,false);
             imageView = new ImageView(context);
             imageView.setLayoutParams(new GridView.LayoutParams(rowWidth, rowWidth));
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
             imageView.setPadding(1,1,1,1);
             imageView.setImageBitmap(bmp);
 
-//                ImageClickListener imageViewClickListener = new ImageClickListener(context, imageIDs[i]);
-//                imageView.setOnClickListener(imageViewClickListener);
-
         }
-        imageView.setImageResource(imageIDs[i]);
+//        imageView.setImageResource(imageIDs.get(i));
 
         return imageView;
-
-
-
-
     }
+
 }

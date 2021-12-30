@@ -34,7 +34,6 @@ public class PhoneFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstance) {
         super.onCreate(savedInstance);
-
         initPhoneFragment();
     }
     @Nullable

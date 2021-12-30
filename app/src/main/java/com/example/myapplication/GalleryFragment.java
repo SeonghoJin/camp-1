@@ -56,8 +56,7 @@ public class GalleryFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.gallery_fragment, container, false);
-
-        context = container.getContext();
+        context = getContext();
         mMetrics = new DisplayMetrics();
         ((WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getMetrics(mMetrics);
 

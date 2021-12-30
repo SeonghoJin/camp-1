@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -37,11 +38,12 @@ public class PhoneNumberViewAdapter extends RecyclerView.Adapter<PhoneNumberView
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         PhoneNumber currentPhoneNumber = phoneNumbers.get(position);
-        String name = currentPhoneNumber.lastName + currentPhoneNumber.firstName;
+        String name = currentPhoneNumber.firstName + currentPhoneNumber.lastName;
         viewBinderHelper.setOpenOnlyOne(true);
         viewBinderHelper.bind(viewHolder.swipeRevealLayout, name);
         viewBinderHelper.closeLayout(name);
         viewHolder.bindNameTextView(name);
+        viewHolder.bindCallButtonText(currentPhoneNumber.phoneNumber);
     }
 
     @Override
@@ -55,25 +57,31 @@ public class PhoneNumberViewAdapter extends RecyclerView.Adapter<PhoneNumberView
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private final TextView name;
+        private TextView name;
         private SwipeRevealLayout swipeRevealLayout;
-        private RelativeLayout swipeAppendLayout;
+        private LinearLayout swipeAppendLayout;
+        private RelativeLayout callButtonWrapper;
+        private RelativeLayout removeButtonWrapper;
+        private Button callButton;
         private ImageButton removeButton;
         public ViewHolder(View view) {
             super(view);
             name = (TextView) view.findViewById(R.id.name);
             swipeRevealLayout = view.findViewById(R.id.phone_item_layout);
             swipeAppendLayout = view.findViewById(R.id.swipe_append_layout);
+            callButtonWrapper = view.findViewById(R.id.phone_number_call_button_wrapper);
+            callButton = view.findViewById(R.id.phone_number_call_button);
+            removeButtonWrapper = view.findViewById(R.id.phone_number_remove_button_wrapper);
             removeButton = view.findViewById(R.id.phone_number_remove_button);
 
-            swipeAppendLayout.setOnClickListener(new View.OnClickListener() {
+            removeButtonWrapper.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     delete(getAdapterPosition());
                 }
             });
 
-            removeButton.setOnClickListener(new View.OnClickListener() {
+            removeButton.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view) {
                     delete(getAdapterPosition());
@@ -83,6 +91,10 @@ public class PhoneNumberViewAdapter extends RecyclerView.Adapter<PhoneNumberView
 
         public void bindNameTextView(String name){
             this.name.setText(name);
+        }
+
+        public void bindCallButtonText(String call){
+            this.callButton.setText(call);
         }
 
         private void delete(int position){

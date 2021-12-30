@@ -24,4 +24,5 @@
     <color name="iphone_links">#007AFF</color>
     <color name="iphone_lines">#CECED2</color>
     <color name="iphone_calendar">#FF3B30</color>
+    <color name="iphone_messages">#4CD964</color>
 </resources>

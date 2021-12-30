@@ -11,25 +11,54 @@
     android:id="@+id/phone_item_layout"
     >
 
-    <RelativeLayout
-        android:layout_width="50dp"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:orientation="horizontal"
         android:id="@+id/swipe_append_layout"
-        android:background="@drawable/phone_number_item_swipe"
         >
 
-        <ImageButton
-            android:id="@+id/phone_number_remove_button"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:background="@drawable/trash"
-            android:layout_gravity="center"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-             />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/phone_number_call_button_wrapper"
+            android:background="@color/iphone_messages"
+            >
 
-    </RelativeLayout>
+            <Button
+                android:id="@+id/phone_number_call_button"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:drawableLeft="@drawable/call_resize"
+                android:background="@color/transparent"
+                android:gravity="center"
+                android:minWidth="30dp"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="10dp"
+                android:textStyle="normal" />
+            </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:id="@+id/phone_number_remove_button_wrapper"
+            android:background="@drawable/phone_number_item_swipe_trash"
+            >
+            <ImageButton
+                android:id="@+id/phone_number_remove_button"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_gravity="center"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/trash"
+                />
+        </RelativeLayout>
+    </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

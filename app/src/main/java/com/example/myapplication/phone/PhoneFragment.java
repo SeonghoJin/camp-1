@@ -34,7 +34,6 @@ public class PhoneFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstance) {
         super.onCreate(savedInstance);
-
         initPhoneFragment();
     }
     @Nullable
@@ -43,16 +42,25 @@ public class PhoneFragment extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.phone_fragment, container, false);
         recyclerView = rootView.findViewById(R.id.recycler_view);
         layoutManager = new LinearLayoutManager(getActivity());
-        phoneNumberViewAdapter = new PhoneNumberViewAdapter(phoneNumbers);
+        phoneNumberViewAdapter = new PhoneNumberViewAdapter(phoneNumbers, getContext());
         recyclerView.setAdapter(phoneNumberViewAdapter);
         recyclerView.setLayoutManager(layoutManager);
+
         onCreateButton = rootView.findViewById(R.id.create_phone_number_button);
-        onCreateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                PhoneCreateDialog phoneCreateDialog = new PhoneCreateDialog(getContext());
-                phoneCreateDialog.show(new PhoneCreateCallback(phoneNumberViewAdapter, phoneNumberDao));
-            }
+        onCreateButton.setOnClickListener(view -> {
+            PhoneCreateDialog phoneCreateDialog = new PhoneCreateDialog(getContext());
+            phoneCreateDialog.setOnComplete(
+                    (String number, String lastName, String firstName) -> {
+                        PhoneNumber phoneNumber = new PhoneNumber();
+                        phoneNumber.phoneNumber = number;
+                        phoneNumber.lastName = lastName;
+                        phoneNumber.firstName = firstName;
+                        phoneNumberViewAdapter.insert(phoneNumber);
+                        phoneNumberDao.insert(phoneNumber);
+                        phoneNumberViewAdapter.notifyDataSetChanged();
+                    }
+            );
+            phoneCreateDialog.show();
         });
         return rootView;
     }

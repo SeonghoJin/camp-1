@@ -9,7 +9,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.myapplication.GalleryFragment;
-import com.example.myapplication.MapFramgent;
+import com.example.myapplication.map.MapFramgent;
 import com.example.myapplication.R;
 import com.example.myapplication.phone.PhoneFragment;
 

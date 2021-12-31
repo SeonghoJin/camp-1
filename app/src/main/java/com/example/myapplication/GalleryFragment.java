@@ -54,7 +54,6 @@ public class GalleryFragment extends Fragment {
     protected GalleryImageAdapter imageAdapter;
     protected ArrayList<String> imageIDs;
 
-    private MediaScanner mMediaScanner;
     ImageButton camerabutton;
     String imageFilePath;
     GridView gridView;
@@ -62,7 +61,6 @@ public class GalleryFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstance) {
         super.onCreate(savedInstance);
-        mMediaScanner = MediaScanner.getInstance(getActivity());
     }
 
     @Nullable

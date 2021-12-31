@@ -3,13 +3,79 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@android:color/holo_blue_bright">
+    android:background="@color/iphone_background"
+    android:weightSum="10"
+    android:padding="10dp"
+    >
 
-    <TextView
-        android:id="@+id/textView"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Display 2"
-        android:textSize="40sp"/>
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:layout_marginBottom="10dp"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:alpha="0.2"
+            android:layout_height="match_parent"
+            android:background="@drawable/game_content"
+            >
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="7"
+        >
+        <RelativeLayout
+            android:alpha="0.2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/game_content"
+            >
+
+            <GridLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation= "horizontal"
+                android:columnCount="5"
+                android:rowCount="5"
+                >
+
+                <Button
+                    android:id="@+id/View1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="View1"
+                    android:layout_gravity="fill"
+                    />
+
+                <Button
+                    android:id="@+id/View2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="VIEW2" />
+
+                <Button
+                    android:id="@+id/button11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="VIEW3" />
+
+                <Button
+                    android:id="@+id/button12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="VIEW4" />
+
+                <Button
+                    android:id="@+id/button13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="VIEW5" />
+
+            </GridLayout>
+        </RelativeLayout>
+    </LinearLayout>
 
 </LinearLayout>

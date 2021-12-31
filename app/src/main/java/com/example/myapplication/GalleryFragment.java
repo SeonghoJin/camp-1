@@ -50,16 +50,13 @@ public class GalleryFragment extends Fragment {
     protected GalleryImageAdapter imageAdapter;
     protected ArrayList<String> imageIDs;
 
-
-    private MediaScanner mMediaScanner;
-    ImageButton cameraButton;
+    ImageButton camerabutton;
     String imageFilePath;
     GridView gridView;
 
     @Override
     public void onCreate(Bundle savedInstance) {
         super.onCreate(savedInstance);
-        mMediaScanner = MediaScanner.getInstance(getActivity());
     }
 
     private int gridViewVerticalPositionWhenThumbnailTapped;

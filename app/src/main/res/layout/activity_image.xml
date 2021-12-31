@@ -20,7 +20,7 @@
         android:textSize="20sp"
         android:gravity="center"/>
 
-    <ImageView
+    <com.github.chrisbanes.photoview.PhotoView
         android:id="@+id/gallery_image"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -49,16 +49,26 @@
 
         <ImageButton
             android:id="@+id/infobutton"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_alignParentRight="true"
             android:layout_gravity="end"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
             android:background="@color/transparent"
             android:scaleType="fitXY"
-            android:src="@drawable/infoicon"
-            android:backgroundTint="#0036FF" />
+            android:src="@drawable/ic_information" />
+
+        <ImageButton
+            android:id="@+id/deletebutton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/transparent"
+            android:scaleType="fitXY"
+            android:src="@drawable/trashcan" />
     </RelativeLayout>
 
 

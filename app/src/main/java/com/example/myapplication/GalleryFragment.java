@@ -1,19 +1,15 @@
 package com.example.myapplication;
 
-import static android.os.Environment.DIRECTORY_DCIM;
-import static android.os.Environment.DIRECTORY_PICTURES;
 
-import android.Manifest;
 
-import android.content.ContentResolver;
-import android.content.ContentValues;
+import android.app.AlertDialog;
 import android.content.Context;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 
 
@@ -30,11 +26,11 @@ import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
+
+import com.example.myapplication.Adapter.MediaScanner;
 
 import java.io.File;
 import java.io.IOException;
@@ -63,6 +59,7 @@ public class GalleryFragment extends Fragment {
         super.onCreate(savedInstance);
     }
 
+    private int gridViewVerticalPositionWhenThumbnailTapped;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -73,8 +70,8 @@ public class GalleryFragment extends Fragment {
 
         makegridview(context, rootView);
 
-        camerabutton = rootView.findViewById(R.id.camerabutton);
-        camerabutton.setOnClickListener(new View.OnClickListener(){
+        cameraButton = rootView.findViewById(R.id.camerabutton);
+        cameraButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 dispatchTakePictureIntent();
@@ -114,8 +111,17 @@ public class GalleryFragment extends Fragment {
 
         imageIDs.add(imageFilePath);
        imageAdapter.notifyDataSetChanged();
-        gridView.setAdapter(imageAdapter);
+       gridView.setAdapter(imageAdapter);
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        imageIDs.clear();
+        imageIDs.addAll(getPathOfAllImg());
+        imageAdapter.notifyDataSetChanged();
+        gridView.setAdapter(imageAdapter);
     }
 
     private File createImageFile() throws IOException {
@@ -134,18 +140,52 @@ public class GalleryFragment extends Fragment {
 
     public void makegridview(Context context, View view){
         imageIDs = getPathOfAllImg();
-
         gridView = (GridView) view.findViewById(R.id.gridView);
         imageAdapter = new GalleryImageAdapter(context, imageIDs, mMetrics);
+
         gridView.setAdapter(imageAdapter);
+
+
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getActivity(), ImageActivity.class);
-                intent.putExtra("ImageValue", imageIDs.get(i).toString());
+                intent.putExtra("ImageValue", imageIDs.get(i));
                 intent.putExtra("ImageNum", Integer.toString(i));
                 intent.putStringArrayListExtra("ImageIDs", imageIDs);
                 startActivity(intent);
+            }
+        });
+        gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setMessage("지우시겠습니까?")
+                        .setCancelable(true)
+                        .setNegativeButton("Delete", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int j) {
+                                System.out.println(imageIDs.size());
+                                System.out.println(i);
+                                imageAdapter = (GalleryImageAdapter) AdapterUtils.removeFile(imageIDs, i, imageAdapter);
+
+                                gridView.clearChoices();
+                                gridView.setAdapter(imageAdapter);
+                            }
+                        })
+                        .setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        });
+
+                AlertDialog alert = builder.create();
+                alert.show();
+
+
+                return true;
             }
         });
     }
@@ -159,18 +199,19 @@ public class GalleryFragment extends Fragment {
 
         Cursor cursor = getActivity().getContentResolver().query(uri, projection, null, null, MediaStore.MediaColumns.DATE_ADDED + " desc");
         int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
-        int columnDisplayname = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DISPLAY_NAME);
+//        int columnDisplayname = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DISPLAY_NAME);
 
-        int lastIndex;
+//        int lastIndex;
         while (cursor.moveToNext())
         {
             String absolutePathOfImage = cursor.getString(columnIndex);
-            String nameOfFile = cursor.getString(columnDisplayname);
-            lastIndex = absolutePathOfImage.lastIndexOf(nameOfFile);
-            lastIndex = lastIndex >= 0 ? lastIndex : nameOfFile.length() - 1;
+//            String nameOfFile = cursor.getString(columnDisplayname);
+//            lastIndex = absolutePathOfImage.lastIndexOf(nameOfFile);
+//            lastIndex = lastIndex >= 0 ? lastIndex : nameOfFile.length() - 1;
 
             if (!TextUtils.isEmpty(absolutePathOfImage))
             {
+
                 fileList.add(absolutePathOfImage);
             }
 

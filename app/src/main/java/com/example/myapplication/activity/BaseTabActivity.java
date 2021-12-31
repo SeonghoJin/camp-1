@@ -2,7 +2,6 @@ package com.example.myapplication.activity;
 
 import android.content.res.ColorStateList;
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -48,8 +47,8 @@ public class BaseTabActivity extends BaseActivity {
     }
 
     protected void setTabLayoutMediator(TabLayout tabLayout, ViewPager2 viewPager2) {
-        String[] fragmentTitles = new String[]{"연락처", "갤러리", "게임"};
-        int[] layoutIds = new int[]{R.layout.phone_tab, R.layout.gallery_tab, R.layout.game_tab};
+        String[] fragmentTitles = new String[]{"연락처", "갤러리", "지도"};
+        int[] layoutIds = new int[]{R.layout.phone_tab, R.layout.gallery_tab, R.layout.map_tab};
 
         new TabLayoutMediator(tabLayout, viewPager2, ((tab, position) -> {
             tab.setCustomView(layoutIds[position]);

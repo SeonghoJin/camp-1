@@ -18,7 +18,7 @@
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_marginBottom="0dp"
-            android:background="@drawable/game"
+            android:background="@drawable/map_1"
             android:layout_gravity="center"
             android:backgroundTint="@color/iphone_settings"
             android:id="@+id/tab_image"
@@ -30,7 +30,7 @@
             android:layout_gravity="center"
             android:background="@color/transparent"
             android:gravity="center"
-            android:text="게임"
+            android:text="지도"
             android:textColor="@color/iphone_settings"
             android:textSize="8dp"></TextView>
     </LinearLayout>

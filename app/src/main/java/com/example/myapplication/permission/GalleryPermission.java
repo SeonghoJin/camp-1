@@ -22,7 +22,8 @@ public class GalleryPermission extends Permission{
                 new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE,
                         Manifest.permission.CAMERA,
-                        Manifest.permission.CALL_PHONE
+                        Manifest.permission.CALL_PHONE,
+                        Manifest.permission.ACCESS_FINE_LOCATION
                 },
                 PermissionRequestNumber.GALLERY_PERMISSION.ordinal());
 

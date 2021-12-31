@@ -29,7 +29,7 @@ public class GameFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.game_fragment, container, false);
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.map_fragment, container, false);
         return rootView;
     }
 

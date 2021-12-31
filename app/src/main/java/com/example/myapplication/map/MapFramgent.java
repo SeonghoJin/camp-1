@@ -60,7 +60,6 @@ public class MapFramgent extends Fragment implements OnMapReadyCallback {
         googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(@NonNull Marker marker) {
-                marker.
                 return false;
             }
         });

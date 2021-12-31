@@ -50,7 +50,7 @@ public class GalleryFragment extends Fragment {
     protected GalleryImageAdapter imageAdapter;
     protected ArrayList<String> imageIDs;
 
-    ImageButton camerabutton;
+    ImageButton cameraButton;
     String imageFilePath;
     GridView gridView;
 

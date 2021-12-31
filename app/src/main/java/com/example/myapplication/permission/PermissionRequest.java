@@ -14,7 +14,7 @@ public class PermissionRequest extends Permission{
 
     @Override
     public void request() {
-        CallPermission callPermission = new CallPermission(getActivity());
-        callPermission.request();
+        GalleryPermission galleryPermission = new GalleryPermission(getActivity());
+        galleryPermission.request();
     }
 }

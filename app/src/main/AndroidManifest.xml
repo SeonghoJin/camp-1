@@ -16,7 +16,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MyApplication">
+        android:theme="@style/Theme.MyApplication"
+        android:requestLegacyExternalStorage="true"
+        >
         <activity
             android:name=".ImageActivity"
             android:exported="false" />
@@ -33,7 +35,7 @@
 
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="fileprovider"
+            android:authorities="com.example.android.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

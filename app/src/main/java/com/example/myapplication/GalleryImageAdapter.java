@@ -50,7 +50,6 @@ public class GalleryImageAdapter extends BaseAdapter {
         if(null != convertView){
             imageView = (ImageView)convertView;
         }else{
-
             Bitmap bmp = BitmapFactory.decodeFile(imageIDs.get(i)); //to save memory
             bmp = Bitmap.createScaledBitmap(bmp, 400,400,false);
             imageView = new ImageView(context);
@@ -60,7 +59,6 @@ public class GalleryImageAdapter extends BaseAdapter {
             imageView.setImageBitmap(bmp);
 
         }
-//        imageView.setImageResource(imageIDs.get(i));
 
         return imageView;
     }

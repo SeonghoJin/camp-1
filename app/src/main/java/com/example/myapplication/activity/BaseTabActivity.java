@@ -2,6 +2,7 @@ package com.example.myapplication.activity;
 
 import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.view.ViewGroup;
 
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -11,6 +12,7 @@ import com.google.android.material.tabs.TabLayoutMediator;
 
 public class BaseTabActivity extends BaseActivity {
     private TabLayout tabLayout;
+    protected ViewGroup mainLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +20,7 @@ public class BaseTabActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         tabLayout = findViewById(R.id.tabs);
         setTabLayoutMediator(tabLayout, viewPager2);
+        mainLayout = findViewById(R.id.main_layout);
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override

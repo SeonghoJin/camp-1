@@ -1,8 +1,6 @@
 package com.example.myapplication.fragment;
 
-import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,9 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import com.example.myapplication.R;
-import com.example.myapplication.SupportRenderScriptBlur;
 
-import eightbitlab.com.blurview.BlurView;
 import jp.wasabeef.blurry.Blurry;
 
 public class BlurFragment extends Fragment {
@@ -35,7 +31,7 @@ public class BlurFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.blue_view_fragment, container, false);
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.blur_view_fragment, container, false);
         initView(rootView);
         return rootView;
     }

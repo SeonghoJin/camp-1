@@ -14,11 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
-import com.example.myapplication.phone.ConcretePhoneNumberDatabase;
-import com.example.myapplication.phone.PhoneCreateDialog;
-import com.example.myapplication.phone.PhoneNumber;
-import com.example.myapplication.phone.PhoneNumberDao;
-import com.example.myapplication.phone.PhoneNumberViewAdapter;
 
 import java.util.List;
 

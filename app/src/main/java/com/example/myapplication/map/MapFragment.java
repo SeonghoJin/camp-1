@@ -72,7 +72,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 .findFirst()
                 .ifPresent((markerVO -> googleMap.moveCamera(CameraUpdateFactory.newLatLng(markerVO.latLng))));
 
-        googleMap.animateCamera(CameraUpdateFactory.zoomTo(13));
+        googleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
 
         googleMap.setOnMarkerClickListener(marker -> {
                 googleMap

@@ -2,6 +2,7 @@ package com.example.myapplication.map;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.R;
@@ -25,6 +27,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     private MapView mapView = null;
     private MainActivity activity = null;
+    private MapDatabase database;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -49,41 +52,34 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.map_fragment, container, false);
+        this.database = new TestMapDatabase();
         mapView = (MapView)rootView.findViewById(R.id.map);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
         return rootView;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        LatLng SEOUL = new LatLng(37.56, 126.97);
+        this.database.getMarkers()
+                .stream()
+                .map((MarkerVO::toMarkerOptions))
+                .forEach((googleMap::addMarker));
 
-        MarkerOptions markerOptions = new MarkerOptions();
+        this.database.getMarkers()
+                .stream()
+                .findFirst()
+                .ifPresent((markerVO -> googleMap.moveCamera(CameraUpdateFactory.newLatLng(markerVO.latLng))));
 
-        markerOptions.position(SEOUL);
+        googleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
 
-        markerOptions.title("서울");
+        googleMap.setOnMarkerClickListener(marker -> {
+                googleMap
+                        .snapshot(bitmap -> database.findMakersByTitle(marker.getTitle())
+                        .ifPresent((markerVO -> activity.inflateBlurView(markerVO, bitmap))));
 
-        markerOptions.snippet("수도");
-
-        googleMap.addMarker(markerOptions);
-
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(SEOUL));
-
-        googleMap.animateCamera(CameraUpdateFactory.zoomTo(13));
-
-        googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(@NonNull Marker marker) {
-                    googleMap.snapshot(new GoogleMap.SnapshotReadyCallback() {
-                        @Override
-                        public void onSnapshotReady(@Nullable Bitmap bitmap) {
-                            activity.inflateBlurView(bitmap);
-                        }
-                    });
-                return false;
-            }
+            return false;
         });
 
     }

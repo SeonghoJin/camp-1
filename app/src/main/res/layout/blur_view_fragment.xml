@@ -23,7 +23,7 @@
             android:id="@+id/pass_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:padding="10dp"
             android:layout_marginTop="10dp"
             android:background="@color/transparent"
             android:minWidth="0dp"
@@ -51,10 +51,11 @@
                     card_view:cardCornerRadius="10dp">
 
                     <ImageView
+                        android:id="@+id/image_view"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/view09"
-                        android:scaleType="centerInside"
+                        android:scaleType="fitXY"
                         ></ImageView>
                 </androidx.cardview.widget.CardView>
 

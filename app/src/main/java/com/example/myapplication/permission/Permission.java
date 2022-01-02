@@ -19,6 +19,6 @@ public abstract class Permission {
       return this.activity;
    }
 
-   abstract void onRequestPermissionResult(int requestCode, String permissions[], int[] grantResults);
-   abstract void request();
+   abstract public void onRequestPermissionResult(int requestCode, String permissions[], int[] grantResults);
+   abstract public void request();
 }

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/transparent"
+    >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15dp"
+        android:layout_margin="10dp"
+        android:text="먼저, KAIST의 캠퍼스는 크게 북측, 동측, 서측 세 부분으로 나누어져 있습니다.
+KAIST의 건물 번호를 보면 알파벳+숫자로 구성되어 있는데요,
+알파벳 N, E, W는 각각 North, East, West의 앞 글자를 따온 것이랍니다.
+
+세 구역에 모두 학생들이 거주하는 기숙사와 식당이 있지만 학부생들의 주된 생활공간은 북측입니다.
+북측에는 다양한 기숙사와 제일 큰 식당인 N11카이마루가 있으며 N12학생회관, N13태울관,
+장영신 학생회관 등 다양한 동아리방들이 위치한 건물, 24시간 학생들이 공부할 수 있는
+N10교양분관이 있습니다. 봄이 되면 기숙사인 N19아름관, N16소망관, N14사랑관으로
+이어지는 쭉 뻗은 길에 벚꽃이 예쁘게 피어나 대학 캠퍼스 다운 화사한 분위기를 느낄 수 있습니다.
+강의실과 학과 건물들은 N4인문사회과학동, N25산업디자인학과동, N7기계공학동을
+제외하고는 대부분 동측이나 서측에 위치해 있습니다.
+E11창의학습관은 새내기 때 강의를 들으러 가장 많이 가게 되는 건물인데, 1학년 때
+듣는 기초필수 과목 강의의 대부분이 이 곳에서 열립니다.
+새내기들을 위한 새내기 행정팀, 학생복지팀, 학적팀, 입학처 등 다양한 사무실이
+위치해 있기도 합니다.저희 카이누리의 공간도 창의학습관 5층에 위치해 있답니다!
+KAIST하면 빼놓을 수 없는 것이 바로 E4KI빌딩(KAIST Institutes B/D) 앞에 위치한
+오리연못인데요, 실제로 오리가 살고 있기도 하고 E4KI빌딩에서 내려다 봤을 때 오리 모양이기도
+해서 오리연못이라는 이름이 붙었다고 합니다! 분수가 나오기도 하고 봄이 되면 꽃이 화사하게
+피어나는 오리연못은 KAIST 캠퍼스 커플들의 훌륭한 데이트 장소일 뿐 아니라 많은 학생들이 공부하다
+지쳤을 때 활기를 찾는 장소입니다. 운이 좋다면 오리연못근처에서 나들이를 하는
+오리, 거위 떼를 볼 수도 있습니다."
+        android:textColor="@color/white"
+        >
+    </TextView>
+</LinearLayout>

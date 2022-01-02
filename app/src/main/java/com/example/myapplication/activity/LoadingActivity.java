@@ -4,28 +4,36 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
+
+import androidx.annotation.NonNull;
 
 import com.example.myapplication.R;
 import com.example.myapplication.permission.PermissionRequest;
 
 public class LoadingActivity extends Activity {
 
+    PermissionRequest permissionRequest;
+    int minimumLoadingSecond = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading);
-        PermissionRequest permissionRequest = new PermissionRequest((Activity)this);
+        permissionRequest = new PermissionRequest((Activity) this);
         permissionRequest.request();
-        startLoading();
     }
 
-    private void startLoading() {
-        Handler handler = new Handler();
-        handler.postDelayed(() -> {
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        permissionRequest.onRequestPermissionResult(requestCode, permissions, grantResults);
+
+        new Handler().postDelayed((Runnable) () -> {
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
-            finish();
-        }, 3000);
+        }, minimumLoadingSecond * 1000);
     }
+
 
 }

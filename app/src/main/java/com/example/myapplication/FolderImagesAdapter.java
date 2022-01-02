@@ -6,28 +6,32 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
 import android.util.DisplayMetrics;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Gallery;
+import android.widget.GridView;
 import android.widget.ImageView;
+
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.myapplication.gallery.GalleryFolder;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
-public class ImageAdapter extends BaseAdapter {
-    Context context;
-    ArrayList<String> imageIDs;
-    DisplayMetrics mMetrics;
-    int layout;
-    LayoutInflater inf;
-    Integer selectedImageId;
-    public ImageAdapter(Context context, ArrayList<String> imageIDs, Integer selectedImageId){
+public class FolderImagesAdapter extends BaseAdapter {
+    private DisplayMetrics mMetrics;
+    private Context context;
+    private ArrayList<String> imageIDs;
+
+    public FolderImagesAdapter(Context context, ArrayList<String> imageIDs, DisplayMetrics mMetrics){
         this.context = context;
         this.imageIDs = imageIDs;
-        this.selectedImageId = selectedImageId;
+        this.mMetrics = mMetrics;
     }
+
     @Override
     public int getCount() {
         return imageIDs.size();
@@ -43,15 +47,27 @@ public class ImageAdapter extends BaseAdapter {
         return i;
     }
 
-    public void delete(int i ){
-        imageIDs.remove(i);
-        notifyDataSetChanged();
+    public void insert(String image) {
+        this.imageIDs.add(image);
+        this.notifyDataSetChanged();
     }
 
+    public void delete(int i){
+        this.imageIDs.remove(i);
+        this.notifyDataSetChanged();
+    }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-        ImageView imageView = new ImageView(context);
+    //creating new imageView
+    public View getView(int i, View convertView, ViewGroup viewGroup) {
+        ImageView imageView = (ImageView)convertView;
+
+        int rowWidth = (mMetrics.widthPixels - mMetrics.widthPixels/15) / 3;
+
+//        if(null != convertView){
+//            imageView = (ImageView)convertView;
+//        }else{
+        if (imageIDs == null) return convertView;
 
         Bitmap bmp = BitmapFactory.decodeFile(imageIDs.get(i)); //to save memory
         bmp = Bitmap.createScaledBitmap(bmp, 600,bmp.getHeight()/(bmp.getWidth()/600),false);
@@ -67,13 +83,17 @@ public class ImageAdapter extends BaseAdapter {
         int exifDegree = exifOrientationToDegrees(exifOrientation);
         bmp = rotate(bmp, exifDegree);
 
+        imageView = new ImageView(context);
+        imageView.setLayoutParams(new GridView.LayoutParams(rowWidth, rowWidth));
         imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+        imageView.setPadding(1,1,1,1);
         imageView.setImageBitmap(bmp);
 
-        imageView.setLayoutParams(new Gallery.LayoutParams(200,200 ));
-        return imageView;
+//        }
 
+        return imageView;
     }
+
     public int exifOrientationToDegrees(int exifOrientation){
 
         if(exifOrientation == ExifInterface.ORIENTATION_ROTATE_90) {
@@ -111,5 +131,6 @@ public class ImageAdapter extends BaseAdapter {
         }
         return bitmap;
     }
+
 
 }

@@ -20,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.view.WindowManager;
 import android.widget.ImageButton;
@@ -30,17 +31,23 @@ import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
 
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 
+import com.example.myapplication.gallery.ConcreteGalleryDatabase;
+import com.example.myapplication.gallery.GalleryDao;
+import com.example.myapplication.gallery.GalleryFolder;
+
+
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class GalleryFragment extends Fragment {
 
     static final int REQUEST_TAKE_PHOTO = 1;
+
+    GalleryDao galleryDao;
+    List<GalleryFolder> galleryFolders;
 
 
     protected DisplayMetrics mMetrics;
@@ -48,109 +55,65 @@ public class GalleryFragment extends Fragment {
     protected GalleryImageAdapter imageAdapter;
     protected ArrayList<String> imageIDs;
 
-    ImageButton cameraButton;
+    ImageButton addButton;
     String imageFilePath;
     GridView gridView;
+    ViewGroup rootView;
 
     @Override
     public void onCreate(Bundle savedInstance) {
         super.onCreate(savedInstance);
     }
 
-    private int gridViewVerticalPositionWhenThumbnailTapped;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.gallery_fragment, container, false);
+        rootView = (ViewGroup) inflater.inflate(R.layout.gallery_fragment, container, false);
         context = getContext();
         mMetrics = new DisplayMetrics();
         ((WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getMetrics(mMetrics);
 
+
+        galleryDao = ConcreteGalleryDatabase.getDatabase(this.getContext());
+        galleryDao.deleteall();
+        galleryFolders = galleryDao.loadAllFolders();
+
+
         makegridview(context, rootView);
 
-        cameraButton = rootView.findViewById(R.id.camerabutton);
-        cameraButton.setOnClickListener(new View.OnClickListener(){
+        addButton = rootView.findViewById(R.id.addbutton);
+        addButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                dispatchTakePictureIntent();
+                createFolder();
             }
         });
         return rootView;
     }
 
-    private void dispatchTakePictureIntent() {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-            File photoFile = null;
-            try {
-                photoFile = createImageFile();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-            if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(getActivity(),
-                        "com.example.android.fileprovider",
-                        photoFile);
-
-                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
-            }
-        }
-    }
-
-
-
-    @Override public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        super.onActivityResult(requestCode, resultCode, intent);
-
-        if(requestCode != REQUEST_TAKE_PHOTO){
-            return;
-        }
-
-        imageIDs.add(imageFilePath);
-       imageAdapter.notifyDataSetChanged();
-       gridView.setAdapter(imageAdapter);
-
-    }
-
     @Override
     public void onResume() {
         super.onResume();
-        imageIDs.clear();
-        imageIDs.addAll(getPathOfAllImg());
-        imageAdapter.notifyDataSetChanged();
+        galleryFolders = galleryDao.loadAllFolders();
+        imageAdapter = new GalleryImageAdapter(context, galleryFolders, mMetrics);
         gridView.setAdapter(imageAdapter);
     }
 
-    private File createImageFile() throws IOException {
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = new File("/storage/self/primary/DCIM/Camera");
-
-       File image = File.createTempFile(
-                imageFileName,
-                ".jpg",
-                storageDir
-        );
-        imageFilePath = image.getAbsolutePath();
-        return image;
-    }
 
     public void makegridview(Context context, View view){
-        imageIDs = getPathOfAllImg();
-        gridView = (GridView) view.findViewById(R.id.gridView);
-        imageAdapter = new GalleryImageAdapter(context, imageIDs, mMetrics);
+        gridView = (GridView) view.findViewById(R.id.foldergridview);
 
+        imageAdapter = new GalleryImageAdapter(context, galleryFolders, mMetrics);
         gridView.setAdapter(imageAdapter);
-
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(getActivity(), ImageActivity.class);
-                intent.putExtra("ImageValue", imageIDs.get(i));
-                intent.putExtra("ImageNum", Integer.toString(i));
-                intent.putStringArrayListExtra("ImageIDs", imageIDs);
+                Intent intent = new Intent(getActivity(), GalleryFolderActivity.class);
+                //TODO: If click the folder, send the GalleryFolder name and images. (Using database)
+                String name = galleryFolders.get(i).folderName;
+                intent.putExtra("key", galleryFolders.get(i).id);
+                intent.putExtra("foldername", galleryFolders.get(i).folderName);
                 startActivity(intent);
             }
         });
@@ -164,10 +127,9 @@ public class GalleryFragment extends Fragment {
                         .setNegativeButton("Delete", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int j) {
-                                System.out.println(imageIDs.size());
-                                System.out.println(i);
-                                imageAdapter = (GalleryImageAdapter) AdapterUtils.removeFile(imageIDs, i, imageAdapter);
-
+                                //TODO: folder delete
+                                galleryDao.deleteFolder(galleryFolders.get(i));
+                                imageAdapter.delete(i);
                                 gridView.clearChoices();
                                 gridView.setAdapter(imageAdapter);
                             }
@@ -188,6 +150,38 @@ public class GalleryFragment extends Fragment {
         });
     }
 
+    public void createFolder(){
+        EditText et = new EditText(getContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("폴더 생성")
+                .setMessage("폴더 이름을 입력해주세요")
+                .setCancelable(false)
+                .setView(et)
+                .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        String value = et.getText().toString();
+                        GalleryFolder galleryFolder = new GalleryFolder();
+                        galleryFolder.folderName = value;
+                        galleryFolder.id = galleryFolders.size();
+                        galleryDao.insertFolder(galleryFolder);
+                        imageAdapter.insert(galleryFolder);
+                        gridView.setAdapter(imageAdapter);
+
+                    }
+                })
+                .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+
+            }
+
+
     public ArrayList<String> getPathOfAllImg() {
 
         ArrayList<String> fileList = new ArrayList<>();
@@ -197,15 +191,9 @@ public class GalleryFragment extends Fragment {
 
         Cursor cursor = getActivity().getContentResolver().query(uri, projection, null, null, MediaStore.MediaColumns.DATE_ADDED + " desc");
         int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
-//        int columnDisplayname = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DISPLAY_NAME);
-
-//        int lastIndex;
         while (cursor.moveToNext())
         {
             String absolutePathOfImage = cursor.getString(columnIndex);
-//            String nameOfFile = cursor.getString(columnDisplayname);
-//            lastIndex = absolutePathOfImage.lastIndexOf(nameOfFile);
-//            lastIndex = lastIndex >= 0 ? lastIndex : nameOfFile.length() - 1;
 
             if (!TextUtils.isEmpty(absolutePathOfImage))
             {
@@ -217,6 +205,5 @@ public class GalleryFragment extends Fragment {
 
         return fileList;
     }
-
 
 }

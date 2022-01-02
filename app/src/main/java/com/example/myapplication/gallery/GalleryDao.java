@@ -23,4 +23,9 @@ public interface GalleryDao {
     @Query("SELECT * FROM galleryFolder")
     public List<GalleryFolder> loadAllFolders();
 
+    @Query("SELECT * FROM galleryfolder WHERE id = :key")
+    public GalleryFolder getGalleryFolderbyKey(int key);
+
+    @Query("DELETE FROM galleryFolder")
+    public void deleteall();
 }

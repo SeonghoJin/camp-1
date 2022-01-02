@@ -3,36 +3,47 @@ package com.example.myapplication;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Gallery;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.TextClock;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplication.gallery.FolderItem;
+import com.example.myapplication.gallery.GalleryFolder;
+
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class GalleryImageAdapter extends BaseAdapter {
     private DisplayMetrics mMetrics;
     private Context context;
+    private List<GalleryFolder> galleryFolders;
     private ArrayList<String> imageIDs;
 
-    public GalleryImageAdapter(Context context, ArrayList<String> imageIDs, DisplayMetrics mMetrics){
+    public GalleryImageAdapter(Context context, List<GalleryFolder> galleryFolders, DisplayMetrics mMetrics){
         this.context = context;
-        this.imageIDs = imageIDs;
+        this.galleryFolders = galleryFolders;
         this.mMetrics = mMetrics;
     }
 
     @Override
     public int getCount() {
-        return imageIDs.size();
+        return galleryFolders.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return imageIDs.get(i);
+        return galleryFolders.get(i);
     }
 
     @Override
@@ -40,27 +51,37 @@ public class GalleryImageAdapter extends BaseAdapter {
         return i;
     }
 
+    public void insert(GalleryFolder galleryFolder) {
+        this.galleryFolders.add(galleryFolder);
+        this.notifyDataSetChanged();
+    }
+
+    public void delete(int i){
+        this.galleryFolders.remove(i);
+        this.notifyDataSetChanged();
+    }
+
     @Override
     //creating new imageView
     public View getView(int i, View convertView, ViewGroup viewGroup) {
-        ImageView imageView = (ImageView)convertView;
+        FolderItem folderItem = new FolderItem(context);
+//        ImageView imageView = (ImageView)convertView;
+        imageIDs = galleryFolders.get(i).images;
 
         int rowWidth = (mMetrics.widthPixels - mMetrics.widthPixels/15) / 3;
+        folderItem.setItem(galleryFolders.get(i).folderName, imageIDs, rowWidth);
+
 
 //        if(null != convertView){
 //            imageView = (ImageView)convertView;
 //        }else{
-            Bitmap bmp = BitmapFactory.decodeFile(imageIDs.get(i)); //to save memory
-            bmp = Bitmap.createScaledBitmap(bmp, 400,400,false);
-            imageView = new ImageView(context);
-            imageView.setLayoutParams(new GridView.LayoutParams(rowWidth, rowWidth));
-             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-            imageView.setPadding(1,1,1,1);
-            imageView.setImageBitmap(bmp);
 
-//        }
 
-        return imageView;
+
+//        imageView = new ImageView(context)
+        return folderItem;
     }
+
+
 
 }

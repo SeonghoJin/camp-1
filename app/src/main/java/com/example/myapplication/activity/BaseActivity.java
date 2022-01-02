@@ -9,7 +9,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.myapplication.GalleryFragment;
-import com.example.myapplication.map.MapFramgent;
+import com.example.myapplication.map.MapFragment;
 import com.example.myapplication.R;
 import com.example.myapplication.phone.PhoneFragment;
 
@@ -30,8 +30,8 @@ public class BaseActivity extends FragmentActivity {
 
         PhoneFragment phoneFragment = new PhoneFragment();
         GalleryFragment galleryFragment = new GalleryFragment();
-        MapFramgent mapFramgent = new MapFramgent();
-        Fragment[] fragments = {phoneFragment, galleryFragment, mapFramgent};
+        MapFragment mapFragment = new MapFragment();
+        Fragment[] fragments = {phoneFragment, galleryFragment, mapFragment};
 
         return new FragmentStateAdapter(fragmentActivity) {
             @NonNull

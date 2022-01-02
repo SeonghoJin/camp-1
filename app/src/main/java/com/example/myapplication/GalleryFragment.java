@@ -30,8 +30,6 @@ import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
 
-import com.example.myapplication.Adapter.MediaScanner;
-
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;

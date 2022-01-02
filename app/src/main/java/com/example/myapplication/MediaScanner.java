@@ -1,4 +1,4 @@
-package com.example.myapplication.Adapter;
+package com.example.myapplication;
 
 import android.content.Context;
 import android.media.MediaScannerConnection;

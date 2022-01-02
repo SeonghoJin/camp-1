@@ -1,6 +1,5 @@
 package com.example.myapplication.fragment;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -48,12 +47,7 @@ public class BlurFragment extends Fragment {
         button = rootView.findViewById(R.id.pass_button);
         expandableLayout1.parentLayout.setOnClickListener(view -> expandableLayout1.toggleLayout());
         expandableLayout2.parentLayout.setOnClickListener(view -> expandableLayout2.toggleLayout());
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ((MainActivity)getActivity()).removeBlurView();
-            }
-        });
+        button.setOnClickListener(view -> ((MainActivity)getActivity()).removeBlurView());
         initBlur();
     }
 

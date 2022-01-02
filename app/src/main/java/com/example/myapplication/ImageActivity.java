@@ -6,6 +6,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,16 +17,20 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.myapplication.gallery.ConcreteGalleryDatabase;
+import com.example.myapplication.gallery.GalleryDao;
+import com.example.myapplication.gallery.GalleryFolder;
 import com.github.chrisbanes.photoview.PhotoView;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ImageActivity extends Activity {
 
     Intent intent;
     String imageValue;
     int imageNum;
-    ArrayList<String> imageIDs;
 
     Gallery gallery;
     PhotoView image;
@@ -33,6 +39,11 @@ public class ImageActivity extends Activity {
     ImageButton deleteButton;
     ImageAdapter galleryadapter;
 
+    //for DB
+    int key;
+    GalleryFolder galleryFolder;
+    GalleryDao galleryDao;
+    List<GalleryFolder> galleryFolders;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +51,15 @@ public class ImageActivity extends Activity {
         setContentView(R.layout.activity_image);
 
         intent = getIntent();
-        imageValue = intent.getStringExtra("ImageValue");
-        imageNum = Integer.parseInt(intent.getStringExtra("ImageNum"));
-        imageIDs = intent.getStringArrayListExtra("ImageIDs");
+        key = intent.getIntExtra("key", -1);
+        imageNum = intent.getIntExtra("imageNum", -1);
+
+        galleryDao = ConcreteGalleryDatabase.getDatabase(getApplicationContext());
+        galleryFolders = galleryDao.loadAllFolders();
+
+        galleryFolder = galleryDao.getGalleryFolderbyKey(key);
+
+        if (galleryFolder.images == null) {galleryFolder.images = new ArrayList<String>(0);}
 
 
         gallery = (Gallery) findViewById(R.id.gallery1);
@@ -57,7 +74,7 @@ public class ImageActivity extends Activity {
         deleteButton = (ImageButton) findViewById(R.id.deletebutton);
 
         //gallery adapter
-        galleryadapter = new ImageAdapter(getApplicationContext(), imageIDs, imageNum);
+        galleryadapter = new ImageAdapter(getApplicationContext(), galleryFolder.images, imageNum);
         gallery.setAdapter(galleryadapter);
 
         //show selected image and set gallery's selection to the selected image.
@@ -66,14 +83,14 @@ public class ImageActivity extends Activity {
 //        bmp = Bitmap.createScaledBitmap(bmp, 400, 400, false);
 //
 //        image.setImageBitmap(bmp);
-        createImageView(image, imageIDs, imageNum);
+        createImageView(image, galleryFolder.images, imageNum);
 
 
         gallery.setSelection(imageNum);
         title.setText("Picture" + imageNum);
 
         setInfobutton(infoButton, imageNum);
-        setDeleteButton(deleteButton, imageNum, imageIDs);
+        setDeleteButton(deleteButton, imageNum, galleryFolder.images);
         // deal with click events
         gallery.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -82,11 +99,11 @@ public class ImageActivity extends Activity {
 //                bmp = Bitmap.createScaledBitmap(bmp, 400, 400, false);
 //                image.setImageBitmap(bmp);
 
-                createImageView(image, imageIDs, i);
+                createImageView(image, galleryFolder.images, i);
 
                 title.setText("Picture" + i);
                 setInfobutton(infoButton, i);
-                setDeleteButton(deleteButton, i, imageIDs);
+                setDeleteButton(deleteButton, i, galleryFolder.images);
 
 
             }
@@ -122,23 +139,32 @@ public class ImageActivity extends Activity {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(ImageActivity.this);
-                System.out.println("flag2");
                 builder.setMessage("지우시겠습니까?")
                         .setCancelable(true)
                         .setNegativeButton("Delete", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int j) {
-                                galleryadapter = (ImageAdapter) AdapterUtils.removeFile(imageIDs, i, galleryadapter);
 
-                                if( i == imageIDs.size() && i != 0){
-                                    createImageView(image, imageIDs, i-1);
+                                int temp = i;
+
+                                while(temp >= imageIDs.size() - 1) {
+                                    temp--;
                                 }
-                                else if (imageIDs.size() == 0){
+//                                if( temp >= imageIDs.size() && i != 0){
+//                                    createImageView(image, imageIDs, temp);
+//
+//                                }
+                                if (imageIDs.size() == 0 || temp == -1){
                                     image.setImageResource(R.drawable.no_image);
                                 }
                                 else{
-                                    createImageView(image, imageIDs, i);
+                                    createImageView(image, imageIDs, temp);
                                 }
+
+                                galleryadapter.delete(temp+1);
+                                galleryDao.updateFolders(galleryFolder);
+
+
                             }
                         })
                         .setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
@@ -157,9 +183,58 @@ public class ImageActivity extends Activity {
 
     public void createImageView(PhotoView image, ArrayList<String>imgIDs, int imgNum ){
         Bitmap bmp = BitmapFactory.decodeFile(imgIDs.get(imgNum)); //to save memory
-        bmp = Bitmap.createScaledBitmap(bmp, 400, 400, false);
+        bmp = Bitmap.createScaledBitmap(bmp, 600,bmp.getHeight()/(bmp.getWidth()/600), false);
+
+        ExifInterface exif = null;
+        try {
+            exif = new ExifInterface(imgIDs.get(imgNum));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        int exifOrientation = exif.getAttributeInt(
+                ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+        int exifDegree = exifOrientationToDegrees(exifOrientation);
+        bmp = rotate(bmp, exifDegree);
 
         image.setImageBitmap(bmp);
+    }
+
+    public int exifOrientationToDegrees(int exifOrientation){
+
+        if(exifOrientation == ExifInterface.ORIENTATION_ROTATE_90) {
+            return 90;
+        } else if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_180) {
+            return 180;
+        }else if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_270) {
+            return 270;
+        }
+        return 0;
+
+    }
+
+    public Bitmap rotate(Bitmap bitmap, int degrees)
+    {
+        if(degrees != 0 && bitmap != null)
+        {
+            Matrix m = new Matrix();
+            m.setRotate(degrees, (float) bitmap.getWidth() / 2,
+                    (float) bitmap.getHeight() / 2);
+
+            try
+            {
+                Bitmap converted = Bitmap.createBitmap(bitmap, 0, 0,
+                        bitmap.getWidth(), bitmap.getHeight(), m, true);
+                if(bitmap != converted)
+                {
+                    bitmap.recycle();
+                    bitmap = converted;
+                }
+            }
+            catch(OutOfMemoryError ex)
+            {
+            }
+        }
+        return bitmap;
     }
 
 }

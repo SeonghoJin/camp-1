@@ -12,7 +12,7 @@ import java.util.ArrayList;
 @Entity
 public class GalleryFolder {
 
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     public int id;
 
     @ColumnInfo(name = "folder_name")

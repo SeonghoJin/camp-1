@@ -6,37 +6,43 @@
     android:background="@color/iphone_background">
 
 
-
-        <GridView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/gridView"
-            android:numColumns="3"
-            android:horizontalSpacing="5dp"
-            android:verticalSpacing="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"/>
+            android:orientation="vertical">
+                <TextView
+                    android:id="@+id/Gallery"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@id/foldergridview"
+                    android:layout_alignTop="@id/foldergridview"
+                    android:layout_alignRight="@id/foldergridview"
+                    android:layout_alignBottom="@id/foldergridview"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="앨범"
+                    android:textColor="@color/black"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
+
+                <GridView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/foldergridview"
+                    android:numColumns="3"
+                    android:horizontalSpacing="5dp"
+                    android:verticalSpacing="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"/>
 
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/gridView"
-            android:layout_alignTop="@id/gridView"
-            android:layout_alignRight="@id/gridView"
-            android:layout_alignBottom="@id/gridView"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:text="앨범"
-            android:textColor="#ffffff"
-            android:textSize="25sp"
-            android:textStyle="bold" />
+
+        </LinearLayout>
 
         <ImageButton
-            android:id="@+id/camerabutton"
+            android:id="@+id/addbutton"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_alignParentRight="true"
@@ -45,7 +51,7 @@
             android:background="@color/transparent"
             android:foreground="@color/transparent"
             android:scaleType="fitXY"
-            android:src="@drawable/cameraicon" />
+            android:src="@drawable/add" />
 
 
 

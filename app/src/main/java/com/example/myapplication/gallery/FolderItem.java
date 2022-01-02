@@ -1,64 +1,61 @@
-package com.example.myapplication;
+package com.example.myapplication.gallery;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
-import android.util.DisplayMetrics;
+import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.Gallery;
+import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+
+import com.example.myapplication.R;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class ImageAdapter extends BaseAdapter {
-    Context context;
-    ArrayList<String> imageIDs;
-    DisplayMetrics mMetrics;
-    int layout;
-    LayoutInflater inf;
-    Integer selectedImageId;
-    public ImageAdapter(Context context, ArrayList<String> imageIDs, Integer selectedImageId){
-        this.context = context;
-        this.imageIDs = imageIDs;
-        this.selectedImageId = selectedImageId;
-    }
-    @Override
-    public int getCount() {
-        return imageIDs.size();
+public class FolderItem extends LinearLayout {
+    TextView folderName;
+    ImageView thumbnail;
+
+    public FolderItem(Context context) {
+        super(context);
+
+        init(context);
     }
 
-    @Override
-    public Object getItem(int i) {
-        return imageIDs.get(i);
+    public FolderItem(Context context, @Nullable AttributeSet attrs){
+        super(context, attrs);
+
+        init(context);
     }
 
-    @Override
-    public long getItemId(int i) {
-        return i;
+    public void init(Context context){
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater.inflate(R.layout.folderitem, this, true);
+
+        folderName = (TextView) findViewById(R.id.folderName);
+        thumbnail = (ImageView) findViewById(R.id.thumbnail);
+
     }
+    public void setItem(String folderName, ArrayList<String> imageIDs, int rowWidth){
+        this.folderName.setText(folderName);
+        if (imageIDs == null || imageIDs.size() == 0){
+            thumbnail.setImageResource(R.drawable.no_image);
+            return;
+        }
 
-    public void delete(int i ){
-        imageIDs.remove(i);
-        notifyDataSetChanged();
-    }
-
-
-    @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-        ImageView imageView = new ImageView(context);
-
-        Bitmap bmp = BitmapFactory.decodeFile(imageIDs.get(i)); //to save memory
+        Bitmap bmp = BitmapFactory.decodeFile(imageIDs.get(0));
         bmp = Bitmap.createScaledBitmap(bmp, 600,bmp.getHeight()/(bmp.getWidth()/600),false);
 
         ExifInterface exif = null;
         try {
-            exif = new ExifInterface(imageIDs.get(i));
+            exif = new ExifInterface(imageIDs.get(0));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -67,12 +64,16 @@ public class ImageAdapter extends BaseAdapter {
         int exifDegree = exifOrientationToDegrees(exifOrientation);
         bmp = rotate(bmp, exifDegree);
 
-        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-        imageView.setImageBitmap(bmp);
+//            imageView = new ImageView(context);
+        thumbnail.setLayoutParams(new LinearLayout.LayoutParams(rowWidth, rowWidth));
+        thumbnail.setScaleType(ImageView.ScaleType.FIT_XY);
+        thumbnail.setPadding(1,1,1,1);
+        thumbnail.setImageBitmap(bmp);
 
-        imageView.setLayoutParams(new Gallery.LayoutParams(200,200 ));
-        return imageView;
+//        }
 
+
+    return;
     }
     public int exifOrientationToDegrees(int exifOrientation){
 

@@ -5,6 +5,8 @@ import android.os.Bundle;
 
 import com.example.myapplication.R;
 import com.example.myapplication.fragment.BlurFragment;
+import com.example.myapplication.map.MarkerVO;
+import com.google.android.gms.maps.model.Marker;
 
 public class MainActivity extends BaseTabActivity {
 
@@ -15,9 +17,10 @@ public class MainActivity extends BaseTabActivity {
         super.onCreate(savedInstanceState);
     }
 
-    public void inflateBlurView(Bitmap bitmap){
-        blurFragment = new BlurFragment(mainLayout, bitmap);
-        getSupportFragmentManager().beginTransaction()
+    public void inflateBlurView(MarkerVO marker, Bitmap bitmap){
+        blurFragment = new BlurFragment(mainLayout, bitmap, marker);
+        getSupportFragmentManager()
+                .beginTransaction()
                 .add(R.id.main_frame_layout, blurFragment).addToBackStack(null).commit();
     }
 

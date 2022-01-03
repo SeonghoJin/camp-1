@@ -56,7 +56,7 @@ public class CreateFolderDialog extends Dialog {
                 else{
                     noImage.setVisibility(View.GONE);
                 }
-                Toast.makeText(getContext(), "앨범이 생성되었습니다.", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "앨범이 생성되었습니다.", Toast.LENGTH_SHORT).show();
                 dismiss();
             }
         });

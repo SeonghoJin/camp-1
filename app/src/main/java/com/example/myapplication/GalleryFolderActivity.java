@@ -28,6 +28,7 @@ import android.widget.TextView;
 import com.example.myapplication.gallery.ConcreteGalleryDatabase;
 import com.example.myapplication.gallery.GalleryDao;
 import com.example.myapplication.gallery.GalleryFolder;
+import com.example.myapplication.gallery.ImageDialog;
 import com.example.myapplication.gallery.TakePicture;
 
 import org.w3c.dom.Text;
@@ -165,29 +166,37 @@ public class GalleryFolderActivity extends Activity {
         gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(GalleryFolderActivity.this);
-                builder.setMessage("지우시겠습니까?")
-                        .setCancelable(true)
-                        .setNegativeButton("Delete", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int j) {
-                                //Adapter
-                                imageAdapter.delete(i);
-                                galleryDao.updateFolders(galleryFolder);
-                                gridView.clearChoices();
-                                gridView.setAdapter(imageAdapter);
-                                updateView();
-                            }
-                        })
-                        .setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-
-                            }
-                        });
-
-                AlertDialog alert = builder.create();
-                alert.show();
+                ImageDialog imageDialog = new ImageDialog(GalleryFolderActivity.this,
+                        galleryDao,
+                        galleryFolders,
+                        imageAdapter,
+                        gridView,
+                        noImage,
+                        i);
+                imageDialog.show();
+//                AlertDialog.Builder builder = new AlertDialog.Builder(GalleryFolderActivity.this);
+//                builder.setMessage("지우시겠습니까?")
+//                        .setCancelable(true)
+//                        .setNegativeButton("Delete", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int j) {
+//                                //Adapter
+//                                imageAdapter.delete(i);
+//                                galleryDao.updateFolders(galleryFolder);
+//                                gridView.clearChoices();
+//                                gridView.setAdapter(imageAdapter);
+//                                updateView();
+//                            }
+//                        })
+//                        .setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int i) {
+//
+//                            }
+//                        });
+//
+//                AlertDialog alert = builder.create();
+//                alert.show();
 
 
                 return true;

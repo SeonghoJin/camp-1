@@ -1,5 +1,8 @@
 package com.example.myapplication;
 
+
+import static com.example.myapplication.gallery.TakePicture.dispatchTakePictureIntent;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
@@ -17,6 +20,7 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.Gallery;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -24,6 +28,7 @@ import android.widget.TextView;
 import com.example.myapplication.gallery.ConcreteGalleryDatabase;
 import com.example.myapplication.gallery.GalleryDao;
 import com.example.myapplication.gallery.GalleryFolder;
+import com.example.myapplication.gallery.TakePicture;
 
 import org.w3c.dom.Text;
 
@@ -56,6 +61,7 @@ public class GalleryFolderActivity extends Activity {
     String folderName;
 
     TextView folderText;
+    TextView noImage;
 
 
     @Override
@@ -67,6 +73,7 @@ public class GalleryFolderActivity extends Activity {
         Intent intent = getIntent();
         key = intent.getIntExtra("key", -1);
         folderName = intent.getStringExtra("foldername");
+        noImage = (TextView) findViewById(R.id.noimage);
 
 
         galleryDao = ConcreteGalleryDatabase.getDatabase(getApplicationContext());
@@ -75,6 +82,14 @@ public class GalleryFolderActivity extends Activity {
         if(galleryFolder.images == null){
             galleryFolder.images = new ArrayList<String>(0);
         }
+
+        if(galleryFolder.images.size() == 0){
+            noImage.setVisibility(View.VISIBLE);
+        }
+        else{
+            noImage.setVisibility(View.GONE);
+        }
+
 
         mMetrics = new DisplayMetrics();
         ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getMetrics(mMetrics);
@@ -85,31 +100,14 @@ public class GalleryFolderActivity extends Activity {
         cameraButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                dispatchTakePictureIntent();
+                imageFilePath = dispatchTakePictureIntent(GalleryFolderActivity.this);
+
+
             }
         });
         return;
     }
 
-    private void dispatchTakePictureIntent() {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            File photoFile = null;
-            try {
-                photoFile = createImageFile();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-            if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(this,
-                        "com.example.android.fileprovider",
-                        photoFile);
-
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
-            }
-        }
-    }
 
 
 
@@ -119,13 +117,10 @@ public class GalleryFolderActivity extends Activity {
         if(requestCode != REQUEST_TAKE_PHOTO){
             return;
         }
-
-//        imageAdapter.insert(imageFilePath);
         galleryFolder.images.add(imageFilePath);
         imageAdapter.notifyDataSetChanged();
         galleryDao.updateFolders(galleryFolder);
 
-        gridView.setAdapter(imageAdapter);
     }
 
     @Override
@@ -138,24 +133,10 @@ public class GalleryFolderActivity extends Activity {
         }
         imageAdapter = new FolderImagesAdapter(context, galleryFolder.images, mMetrics);
         gridView.setAdapter(imageAdapter);
+        updateView();
         makegridview(context, galleryFolder);
     }
 
-    private File createImageFile() throws IOException {
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = new File(String.valueOf(getExternalCacheDir()));
-
-        File image = File.createTempFile(
-                imageFileName,
-                ".jpg",
-                storageDir
-
-        );
-        imageFilePath = image.getAbsolutePath();
-
-        return image;
-    }
 
     public void makegridview(Context context, GalleryFolder galleryFolder){
 
@@ -168,6 +149,7 @@ public class GalleryFolderActivity extends Activity {
         imageAdapter = new FolderImagesAdapter(context, imageIDs, mMetrics);
 
         gridView.setAdapter(imageAdapter);
+        updateView();
 
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -194,6 +176,7 @@ public class GalleryFolderActivity extends Activity {
                                 galleryDao.updateFolders(galleryFolder);
                                 gridView.clearChoices();
                                 gridView.setAdapter(imageAdapter);
+                                updateView();
                             }
                         })
                         .setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
@@ -212,32 +195,12 @@ public class GalleryFolderActivity extends Activity {
         });
     }
 
-//    public ArrayList<String> getPathOfAllImg() {
-//
-//        ArrayList<String> fileList = new ArrayList<>();
-//
-//        Uri uri = android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-//        String[] projection = { MediaStore.MediaColumns.DATA, MediaStore.MediaColumns.DISPLAY_NAME };
-//
-//        Cursor cursor = getContentResolver().query(uri, projection, null, null, MediaStore.MediaColumns.DATE_ADDED + " desc");
-//        int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
-//        while (cursor.moveToNext())
-//        {
-//            String absolutePathOfImage = cursor.getString(columnIndex);
-//
-//            if (!TextUtils.isEmpty(absolutePathOfImage))
-//            {
-//
-//                fileList.add(absolutePathOfImage);
-//            }
-//
-//        }
-//
-//        return fileList;
-//    }
-
-
-    //TODO: Firstly, get intent from gallery fragment. 2. show gridView (from activity_galley_folder), then add camera function
-        //TODO: When we take pictures, update database, then add to the gridView. (Add insert method to adapter)
-        //TODO: Change jpg file to JSON file.
+    public void updateView(){
+        if(galleryFolder.images.size() == 0){
+            noImage.setVisibility(View.VISIBLE);
+        }
+        else{
+            noImage.setVisibility(View.GONE);
+        }
+    }
     }

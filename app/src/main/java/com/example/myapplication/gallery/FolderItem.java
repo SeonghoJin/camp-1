@@ -46,6 +46,9 @@ public class FolderItem extends LinearLayout {
     public void setItem(String folderName, ArrayList<String> imageIDs, int rowWidth){
         this.folderName.setText(folderName);
         if (imageIDs == null || imageIDs.size() == 0){
+            thumbnail.setLayoutParams(new LinearLayout.LayoutParams(rowWidth, rowWidth));
+            thumbnail.setScaleType(ImageView.ScaleType.FIT_XY);
+            thumbnail.setPadding(1,1,1,1);
             thumbnail.setImageResource(R.drawable.no_image);
             return;
         }

@@ -76,18 +76,17 @@
                 android:visibility="invisible"
                 >
             </ImageView>
+
             <TextView
+                android:id="@+id/default_profile_word"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:text="뷁"
-                android:textSize="75dp"
-                android:textAlignment="center"
                 android:gravity="center"
-                android:id="@+id/default_profile_word"
-                >
-            </TextView>
+                android:text="뷁"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="75dp"
+                android:textStyle="bold"></TextView>
         </RelativeLayout>
     </RelativeLayout>
 

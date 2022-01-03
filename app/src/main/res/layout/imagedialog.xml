@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:background="@color/transparent"/>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/Dialog"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/transparent"
+        android:layout_gravity="bottom"
+        android:gravity="bottom"
+        android:weightSum="3"
+        >
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="300dp"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:layout_gravity="center"
+            app:cardBackgroundColor="@color/iphone_background"
+            app:cardCornerRadius="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_gravity="center"
+                android:layout_height="match_parent"
+                android:weightSum="3"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight = "1"
+                    android:background="@color/transparent"
+                    android:text="이 사진이 앨범에서 삭제됩니다."
+                    android:textSize="12sp"
+                    android:gravity="center"/>
+
+                <Button
+                    android:id="@+id/deleteimage"
+                    android:layout_width="300dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="2"
+                    android:background="@drawable/line_top"
+                    android:text="사진 삭제"
+                    android:textSize="17sp"
+                    android:textColor="#FF0000" />
+
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="300dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center"
+            app:cardBackgroundColor="@color/iphone_background"
+            app:cardCornerRadius="10dp">
+        <Button
+            android:id="@+id/cancel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text ="취소"
+            android:layout_gravity="center"
+            android:background = "@drawable/roundbackground"
+            android:backgroundTint="@color/iphone_background"/>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+</LinearLayout>

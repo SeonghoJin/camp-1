@@ -43,8 +43,8 @@ public class PhoneFragment extends Fragment {
 
         onCreateButton = rootView.findViewById(R.id.create_phone_number_button);
         onCreateButton.setOnClickListener(view -> {
-            PhoneCreateDialog phoneCreateDialog = new PhoneCreateDialog(getContext());
-            phoneCreateDialog.setOnComplete(
+            PhoneCreateDialogFragment phoneCreateDialogFragment = new PhoneCreateDialogFragment();
+            phoneCreateDialogFragment.setOnComplete(
                     (String number, String lastName, String firstName) -> {
                         PhoneNumber phoneNumber = new PhoneNumber();
                         phoneNumber.phoneNumber = number;
@@ -55,7 +55,7 @@ public class PhoneFragment extends Fragment {
                         phoneNumberViewAdapter.notifyDataSetChanged();
                     }
             );
-            phoneCreateDialog.show();
+            phoneCreateDialogFragment.show(getActivity().getSupportFragmentManager(), "phone_create_fragment");
         });
         return rootView;
     }

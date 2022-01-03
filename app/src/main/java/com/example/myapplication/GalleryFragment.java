@@ -3,6 +3,7 @@ package com.example.myapplication;
 
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 
 import android.content.DialogInterface;
@@ -16,6 +17,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +27,7 @@ import android.widget.GridView;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -34,9 +37,10 @@ import androidx.fragment.app.Fragment;
 
 
 import com.example.myapplication.gallery.ConcreteGalleryDatabase;
+import com.example.myapplication.gallery.FolderDialog;
 import com.example.myapplication.gallery.GalleryDao;
 import com.example.myapplication.gallery.GalleryFolder;
-
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 
 import java.util.ArrayList;
@@ -49,6 +53,7 @@ public class GalleryFragment extends Fragment {
 
     GalleryDao galleryDao;
     List<GalleryFolder> galleryFolders;
+    GalleryFolder galleryFolder;
 
 
     protected DisplayMetrics mMetrics;
@@ -60,7 +65,7 @@ public class GalleryFragment extends Fragment {
     String imageFilePath;
     GridView gridView;
     ViewGroup rootView;
-    TextView noImage;
+    TextView noFolder;
 
     @Override
     public void onCreate(Bundle savedInstance) {
@@ -77,17 +82,17 @@ public class GalleryFragment extends Fragment {
 
 
         galleryDao = ConcreteGalleryDatabase.getDatabase(this.getContext());
-//        galleryDao.deleteall();
+        galleryDao.deleteall();
         galleryFolders = galleryDao.loadAllFolders();
 
         //NO image
-        noImage = (TextView) rootView.findViewById(R.id.noimage);
+        noFolder = (TextView) rootView.findViewById(R.id.nofolder);
 
         if(galleryFolders.size() == 0){
-            noImage.setVisibility(View.VISIBLE);
+            noFolder.setVisibility(View.VISIBLE);
         }
         else{
-            noImage.setVisibility(View.GONE);
+            noFolder.setVisibility(View.GONE);
         }
 
         makegridview(context, rootView);
@@ -96,7 +101,8 @@ public class GalleryFragment extends Fragment {
         addButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                createFolder();
+                CreateFolderDialog dialog = new CreateFolderDialog(getActivity(), galleryDao, galleryFolders, imageAdapter, gridView, noFolder);
+                dialog.show();
             }
         });
         return rootView;
@@ -125,6 +131,7 @@ public class GalleryFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getActivity(), GalleryFolderActivity.class);
+
                 //TODO: If click the folder, send the GalleryFolder name and images. (Using database)
                 String name = galleryFolders.get(i).folderName;
                 intent.putExtra("key", galleryFolders.get(i).id);
@@ -135,30 +142,12 @@ public class GalleryFragment extends Fragment {
         gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setMessage("지우시겠습니까?")
-                        .setCancelable(true)
-                        .setNegativeButton("Delete", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int j) {
-                                //TODO: folder delete
-                                galleryDao.deleteFolder(galleryFolders.get(i));
-                                imageAdapter.delete(i);
-                                gridView.clearChoices();
-                                gridView.setAdapter(imageAdapter);
-                                updateView();
-                            }
-                        })
-                        .setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-
-                            }
-                        });
-
-                AlertDialog alert = builder.create();
-                alert.show();
+                if(galleryFolders.get(i).images == null){
+                    galleryFolders.get(i).images = new ArrayList<String>(0);
+                }
+                galleryFolder = galleryFolders.get(i);
+                FolderDialog dialog = new FolderDialog(getActivity(), galleryDao, galleryFolders, imageAdapter, gridView, noFolder, i, imageFilePath, getActivity());
+                dialog.show();
 
 
                 return true;
@@ -166,70 +155,13 @@ public class GalleryFragment extends Fragment {
         });
     }
 
-    public void createFolder(){
-        EditText et = new EditText(getContext());
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("폴더 생성")
-                .setMessage("폴더 이름을 입력해주세요")
-                .setCancelable(false)
-                .setView(et)
-                .setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        String value = et.getText().toString();
-                        GalleryFolder galleryFolder = new GalleryFolder();
-                        galleryFolder.folderName = value;
-                        galleryFolder.id = galleryFolders.size();
-                        galleryDao.insertFolder(galleryFolder);
-                        imageAdapter.insert(galleryFolder);
-                        gridView.setAdapter(imageAdapter);
-                        updateView();
-
-
-                    }
-                })
-                .setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                    }
-                });
-        AlertDialog alert = builder.create();
-        alert.show();
-
-            }
-
-
-    public ArrayList<String> getPathOfAllImg() {
-
-        ArrayList<String> fileList = new ArrayList<>();
-
-        Uri uri = android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-        String[] projection = { MediaStore.MediaColumns.DATA, MediaStore.MediaColumns.DISPLAY_NAME };
-
-        Cursor cursor = getActivity().getContentResolver().query(uri, projection, null, null, MediaStore.MediaColumns.DATE_ADDED + " desc");
-        int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
-        while (cursor.moveToNext())
-        {
-            String absolutePathOfImage = cursor.getString(columnIndex);
-
-            if (!TextUtils.isEmpty(absolutePathOfImage))
-            {
-
-                fileList.add(absolutePathOfImage);
-            }
-
-        }
-
-        return fileList;
-    }
 
     public void updateView(){
         if(galleryFolders.size() == 0){
-            noImage.setVisibility(View.VISIBLE);
+            noFolder.setVisibility(View.VISIBLE);
         }
         else{
-            noImage.setVisibility(View.GONE);
+            noFolder.setVisibility(View.GONE);
         }
     }
 }

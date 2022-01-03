@@ -145,27 +145,30 @@ public class ImageActivity extends Activity {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int j) {
 
-                                int temp = i;
-
-                                while(temp >= imageIDs.size() - 1) {
-                                    temp--;
-                                }
-//                                if( temp >= imageIDs.size() && i != 0){
-//                                    createImageView(image, imageIDs, temp);
-//
-//                                }
-                                if (imageIDs.size() == 0 || temp == -1){
-                                    galleryadapter.delete(temp+1);
+                                if(imageIDs.size() == 1){
+                                    galleryadapter.delete(0);
                                     galleryDao.updateFolders(galleryFolder);
                                     finish();
                                     return;
                                 }
-                                else{
-                                    createImageView(image, imageIDs, temp);
+
+                                int temp = i;
+
+                                if(temp >= imageIDs.size() - 1){
+                                    while(temp > imageIDs.size() - 1){
+                                        temp--;
+                                    }
+                                    galleryadapter.delete(temp);
+                                    galleryDao.updateFolders(galleryFolder);
+                                    createImageView(image, imageIDs, temp-1);
+                                    return;
                                 }
 
-                                galleryadapter.delete(temp+1);
+                                galleryadapter.delete(i);
                                 galleryDao.updateFolders(galleryFolder);
+                                createImageView(image, imageIDs, i);
+
+
 
 
                             }

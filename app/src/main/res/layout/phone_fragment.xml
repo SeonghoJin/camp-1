@@ -9,8 +9,8 @@
 
     <ImageButton
         android:id="@+id/create_phone_number_button"
-        android:layout_width="15dp"
-        android:layout_height="15dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:layout_gravity="end"
         android:background="@color/transparent"
         android:layout_margin="10dp"
@@ -43,9 +43,8 @@
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/recycler_view"
         android:layout_margin="10dp"
-        ></androidx.recyclerview.widget.RecyclerView>
+        android:background="@drawable/recycler_view"></androidx.recyclerview.widget.RecyclerView>
 
 
 </LinearLayout>

@@ -1,39 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/iphone_background">
 
+        <ImageButton
+            android:id="@+id/addbutton"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="end"
+            android:background="@color/transparent"
+            android:layout_margin="10dp"
+            android:src="@drawable/plus4"
+            >
+        </ImageButton>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-                <TextView
-                    android:id="@+id/Gallery"
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignLeft="@id/foldergridview"
-                    android:layout_alignTop="@id/foldergridview"
-                    android:layout_alignRight="@id/foldergridview"
-                    android:layout_alignBottom="@id/foldergridview"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:text="앨범"
-                    android:textColor="@color/black"
-                    android:textSize="25sp"
-                    android:textStyle="bold" />
+                    android:background="@drawable/phone_fragment_header"
+                    android:layout_margin="10dp">
+                        <TextView
+                            android:id="@+id/Gallery"
+                            android:gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="앨범"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:textSize="25dp"
+                            android:layout_marginBottom="10dp" />
+                </RelativeLayout>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text = "사진이나 앨범이 없습니다."
+                    android:text = "앨범이 없습니다."
                     android:gravity="center"
                     android:visibility="gone"
-                    android:id="@+id/noimage"/>
+                    android:id="@+id/nofolder"/>
 
                 <GridView
                     android:layout_width="match_parent"
@@ -49,20 +59,8 @@
 
         </LinearLayout>
 
-        <ImageButton
-            android:id="@+id/addbutton"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@color/transparent"
-            android:foreground="@color/transparent"
-            android:scaleType="fitXY"
-            android:src="@drawable/add" />
 
 
 
 
-
-</RelativeLayout>
+</LinearLayout>

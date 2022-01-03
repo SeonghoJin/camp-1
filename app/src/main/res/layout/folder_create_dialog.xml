@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/Dialog"
+    android:layout_width="300dp"
+    android:layout_height="160dp"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:background="@drawable/roundbackground"
+    android:backgroundTint="@color/iphone_background"
+    android:weightSum="10"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="7"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:weightSum="10"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:text = "새로운 앨범"
+            android:gravity="center"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:textSize="10sp"
+            android:text = "이 앨범의 이름을 입력하십시오."/>
+
+        <EditText
+            android:id = "@+id/titleinput"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="5"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="12dp"
+            android:background = "@drawable/roundbackground"
+            android:hint = "  제목"
+            android:textSize = "12sp"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:background = "@drawable/line_top"
+        android:layout_marginTop="10dp"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <Button
+            android:id = "@+id/cancel"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="취소"
+            android:textSize="15sp"
+            android:background = "@drawable/line_vertical"
+            />
+        <Button
+            android:id = "@+id/save"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="저장"
+            android:textSize="15sp"
+            android:background = "@color/transparent"
+            />
+
+
+    </LinearLayout>
+</LinearLayout>

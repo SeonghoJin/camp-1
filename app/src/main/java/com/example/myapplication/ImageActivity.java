@@ -87,7 +87,7 @@ public class ImageActivity extends Activity {
 
 
         gallery.setSelection(imageNum);
-        title.setText("Picture" + imageNum);
+        title.setText("Picture" + imageNum );
 
         setInfobutton(infoButton, imageNum);
         setDeleteButton(deleteButton, imageNum, galleryFolder.images);
@@ -118,7 +118,7 @@ public class ImageActivity extends Activity {
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(ImageActivity.this);
                 builder.setMessage("Information")
-                        .setMessage("Picture" + i)
+                        .setMessage("Picture" + i+ "\n" + "folder: " + galleryFolder.folderName)
                         .setCancelable(true)
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                             @Override
@@ -155,7 +155,10 @@ public class ImageActivity extends Activity {
 //
 //                                }
                                 if (imageIDs.size() == 0 || temp == -1){
-                                    image.setImageResource(R.drawable.no_image);
+                                    galleryadapter.delete(temp+1);
+                                    galleryDao.updateFolders(galleryFolder);
+                                    finish();
+                                    return;
                                 }
                                 else{
                                     createImageView(image, imageIDs, temp);

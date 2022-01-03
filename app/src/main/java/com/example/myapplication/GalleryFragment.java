@@ -24,6 +24,7 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.view.WindowManager;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -59,6 +60,7 @@ public class GalleryFragment extends Fragment {
     String imageFilePath;
     GridView gridView;
     ViewGroup rootView;
+    TextView noImage;
 
     @Override
     public void onCreate(Bundle savedInstance) {
@@ -75,9 +77,18 @@ public class GalleryFragment extends Fragment {
 
 
         galleryDao = ConcreteGalleryDatabase.getDatabase(this.getContext());
-        galleryDao.deleteall();
+//        galleryDao.deleteall();
         galleryFolders = galleryDao.loadAllFolders();
 
+        //NO image
+        noImage = (TextView) rootView.findViewById(R.id.noimage);
+
+        if(galleryFolders.size() == 0){
+            noImage.setVisibility(View.VISIBLE);
+        }
+        else{
+            noImage.setVisibility(View.GONE);
+        }
 
         makegridview(context, rootView);
 
@@ -97,6 +108,9 @@ public class GalleryFragment extends Fragment {
         galleryFolders = galleryDao.loadAllFolders();
         imageAdapter = new GalleryImageAdapter(context, galleryFolders, mMetrics);
         gridView.setAdapter(imageAdapter);
+        updateView();
+
+
     }
 
 
@@ -105,6 +119,7 @@ public class GalleryFragment extends Fragment {
 
         imageAdapter = new GalleryImageAdapter(context, galleryFolders, mMetrics);
         gridView.setAdapter(imageAdapter);
+        updateView();
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -132,6 +147,7 @@ public class GalleryFragment extends Fragment {
                                 imageAdapter.delete(i);
                                 gridView.clearChoices();
                                 gridView.setAdapter(imageAdapter);
+                                updateView();
                             }
                         })
                         .setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
@@ -167,6 +183,8 @@ public class GalleryFragment extends Fragment {
                         galleryDao.insertFolder(galleryFolder);
                         imageAdapter.insert(galleryFolder);
                         gridView.setAdapter(imageAdapter);
+                        updateView();
+
 
                     }
                 })
@@ -206,4 +224,12 @@ public class GalleryFragment extends Fragment {
         return fileList;
     }
 
+    public void updateView(){
+        if(galleryFolders.size() == 0){
+            noImage.setVisibility(View.VISIBLE);
+        }
+        else{
+            noImage.setVisibility(View.GONE);
+        }
+    }
 }

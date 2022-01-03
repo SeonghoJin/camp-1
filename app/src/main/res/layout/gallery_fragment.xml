@@ -27,6 +27,14 @@
                     android:textSize="25sp"
                     android:textStyle="bold" />
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text = "사진이나 앨범이 없습니다."
+                    android:gravity="center"
+                    android:visibility="gone"
+                    android:id="@+id/noimage"/>
+
                 <GridView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

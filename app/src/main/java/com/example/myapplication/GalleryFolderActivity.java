@@ -144,7 +144,7 @@ public class GalleryFolderActivity extends Activity {
     private File createImageFile() throws IOException {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = new File("/storage/self/primary/DCIM/Camera");
+        File storageDir = new File(String.valueOf(getExternalCacheDir()));
 
         File image = File.createTempFile(
                 imageFileName,

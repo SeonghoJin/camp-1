@@ -33,7 +33,10 @@
             android:gravity="center"
             android:text="갤러리"
             android:textColor="@color/iphone_settings"
-            android:textSize="8dp"></TextView>
+            android:textSize="8dp"
+            android:fontFamily="@font/kopubmedium">
+
+        </TextView>
     </LinearLayout>
 
 

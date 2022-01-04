@@ -42,7 +42,8 @@
                     android:background="@color/transparent"
                     android:text="이 사진이 앨범에서 삭제됩니다."
                     android:textSize="12sp"
-                    android:gravity="center"/>
+                    android:gravity="center"
+                    android:fontFamily="@font/kopublight"/>
 
                 <Button
                     android:id="@+id/deleteimage"
@@ -52,7 +53,8 @@
                     android:background="@drawable/line_top"
                     android:text="사진 삭제"
                     android:textSize="17sp"
-                    android:textColor="#FF0000" />
+                    android:textColor="#FF0000"
+                    android:fontFamily="@font/kopubmedium"/>
 
 
             </LinearLayout>
@@ -73,7 +75,8 @@
             android:text ="취소"
             android:layout_gravity="center"
             android:background = "@drawable/roundbackground"
-            android:backgroundTint="@color/iphone_background"/>
+            android:backgroundTint="@color/iphone_background"
+            android:fontFamily="@font/kopubmedium"/>
         </androidx.cardview.widget.CardView>
     </LinearLayout>
 </LinearLayout>

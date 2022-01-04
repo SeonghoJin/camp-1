@@ -35,9 +35,9 @@
                     android:layout_height="0dp"
                     android:layout_weight="3"
                     android:text = "새로운 앨범"
+                    android:fontFamily="@font/kopubbold"
                     android:gravity="center"
                     android:textSize="17sp"
-                    android:textStyle="bold"
                     />
                 <TextView
                     android:layout_width="match_parent"
@@ -45,7 +45,8 @@
                     android:layout_weight="2"
                     android:gravity="center"
                     android:textSize="10sp"
-                    android:text = "이 앨범의 이름을 입력하십시오."/>
+                    android:text = "이 앨범의 이름을 입력하십시오."
+                    android:fontFamily="@font/kopubmedium"/>
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
@@ -63,7 +64,8 @@
                         android:layout_margin="10dp"
                         android:background="@drawable/roundbackground"
                         android:hint="  제목"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        android:fontFamily="@font/kopubmedium"/>
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
 
@@ -83,6 +85,7 @@
                     android:layout_weight="1"
                     android:text="취소"
                     android:textSize="15sp"
+                    android:fontFamily="@font/kopubmedium"
                     android:background = "@drawable/line_vertical"
                     />
                 <Button
@@ -92,6 +95,7 @@
                     android:layout_weight="1"
                     android:text="저장"
                     android:textSize="15sp"
+                    android:fontFamily="@font/kopubmedium"
                     android:background = "@color/transparent"
                     />
 

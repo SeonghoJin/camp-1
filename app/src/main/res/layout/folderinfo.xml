@@ -11,7 +11,8 @@
         android:id="@+id/canceltext"
         android:layout_width="match_parent"
         android:layout_height="560dp"
-        android:background="@color/transparent"/>
+        android:background="@color/transparent"
+        />
 
 
     <androidx.cardview.widget.CardView
@@ -36,7 +37,8 @@
                 android:text =" Name "
                 android:gravity="center_horizontal"
                 android:background = "@drawable/roundbackground"
-                android:backgroundTint="@color/iphone_background"/>
+                android:backgroundTint="@color/iphone_background"
+                android:fontFamily="@font/kopubbold"/>
 
             <TextView
                 android:id="@+id/information"
@@ -46,7 +48,8 @@
                 android:textSize="15sp"
                 android:gravity="center_horizontal"
                 android:background = "@drawable/roundbackground"
-                android:backgroundTint="@color/iphone_background"/>
+                android:backgroundTint="@color/iphone_background"
+                android:fontFamily="@font/kopubmedium"/>
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

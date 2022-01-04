@@ -55,6 +55,14 @@ public class ImageDialog extends Dialog {
 
         Button delete = findViewById(R.id.deleteimage);
         Button cancel = findViewById(R.id.cancel);
+        TextView canceltext = findViewById(R.id.deletetext);
+
+        canceltext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dismiss();
+            }
+        });
 
         delete.setOnClickListener(new View.OnClickListener() {
             @Override

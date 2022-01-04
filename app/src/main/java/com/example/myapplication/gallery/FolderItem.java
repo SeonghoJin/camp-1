@@ -47,7 +47,7 @@ public class FolderItem extends LinearLayout {
         this.folderName.setText(folderName);
         if (imageIDs == null || imageIDs.size() == 0){
             thumbnail.setLayoutParams(new LinearLayout.LayoutParams(rowWidth, rowWidth));
-            thumbnail.setScaleType(ImageView.ScaleType.FIT_XY);
+            thumbnail.setScaleType(ImageView.ScaleType.CENTER_CROP);
             thumbnail.setPadding(1,1,1,1);
             thumbnail.setImageResource(R.drawable.no_image);
             return;
@@ -69,7 +69,7 @@ public class FolderItem extends LinearLayout {
 
 //            imageView = new ImageView(context);
         thumbnail.setLayoutParams(new LinearLayout.LayoutParams(rowWidth, rowWidth));
-        thumbnail.setScaleType(ImageView.ScaleType.FIT_XY);
+        thumbnail.setScaleType(ImageView.ScaleType.CENTER_CROP);
         thumbnail.setPadding(1,1,1,1);
         thumbnail.setImageBitmap(bmp);
 

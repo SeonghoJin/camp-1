@@ -85,7 +85,7 @@ public class FolderImagesAdapter extends BaseAdapter {
 
         imageView = new ImageView(context);
         imageView.setLayoutParams(new GridView.LayoutParams(rowWidth, rowWidth));
-        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         imageView.setPadding(1,1,1,1);
         imageView.setImageBitmap(bmp);
 

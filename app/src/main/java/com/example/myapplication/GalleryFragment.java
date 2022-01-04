@@ -82,7 +82,7 @@ public class GalleryFragment extends Fragment {
 
 
         galleryDao = ConcreteGalleryDatabase.getDatabase(this.getContext());
-        galleryDao.deleteall();
+//        galleryDao.deleteall();
         galleryFolders = galleryDao.loadAllFolders();
 
         //NO image

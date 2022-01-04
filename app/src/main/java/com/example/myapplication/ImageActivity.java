@@ -1,5 +1,8 @@
 package com.example.myapplication;
 
+import static com.example.myapplication.gallery.RotatePicture.exifOrientationToDegrees;
+import static com.example.myapplication.gallery.RotatePicture.rotate;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -20,6 +23,8 @@ import android.widget.TextView;
 import com.example.myapplication.gallery.ConcreteGalleryDatabase;
 import com.example.myapplication.gallery.GalleryDao;
 import com.example.myapplication.gallery.GalleryFolder;
+import com.example.myapplication.gallery.GalleryViewDialog;
+import com.example.myapplication.gallery.RotatePicture;
 import com.github.chrisbanes.photoview.PhotoView;
 
 import java.io.IOException;
@@ -111,6 +116,7 @@ public class ImageActivity extends Activity {
 
     }
 
+
     public void setInfobutton(ImageButton infoButton, int i) {
         //button
         infoButton.setOnClickListener(new View.OnClickListener() {
@@ -138,51 +144,8 @@ public class ImageActivity extends Activity {
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(ImageActivity.this);
-                builder.setMessage("지우시겠습니까?")
-                        .setCancelable(true)
-                        .setNegativeButton("Delete", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int j) {
-
-                                if(imageIDs.size() == 1){
-                                    galleryadapter.delete(0);
-                                    galleryDao.updateFolders(galleryFolder);
-                                    finish();
-                                    return;
-                                }
-
-                                int temp = i;
-
-                                if(temp >= imageIDs.size() - 1){
-                                    while(temp > imageIDs.size() - 1){
-                                        temp--;
-                                    }
-                                    galleryadapter.delete(temp);
-                                    galleryDao.updateFolders(galleryFolder);
-                                    createImageView(image, imageIDs, temp-1);
-                                    return;
-                                }
-
-                                galleryadapter.delete(i);
-                                galleryDao.updateFolders(galleryFolder);
-                                createImageView(image, imageIDs, i);
-
-
-
-
-                            }
-                        })
-                        .setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-
-                            }
-                        });
-
-                AlertDialog alert = builder.create();
-                alert.show();
-
+                GalleryViewDialog dialog = new GalleryViewDialog(ImageActivity.this, galleryDao, galleryFolder, galleryadapter, image, i, ImageActivity.this);
+                dialog.show();
             }
         });
     }
@@ -205,42 +168,5 @@ public class ImageActivity extends Activity {
         image.setImageBitmap(bmp);
     }
 
-    public int exifOrientationToDegrees(int exifOrientation){
-
-        if(exifOrientation == ExifInterface.ORIENTATION_ROTATE_90) {
-            return 90;
-        } else if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_180) {
-            return 180;
-        }else if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_270) {
-            return 270;
-        }
-        return 0;
-
-    }
-
-    public Bitmap rotate(Bitmap bitmap, int degrees)
-    {
-        if(degrees != 0 && bitmap != null)
-        {
-            Matrix m = new Matrix();
-            m.setRotate(degrees, (float) bitmap.getWidth() / 2,
-                    (float) bitmap.getHeight() / 2);
-
-            try
-            {
-                Bitmap converted = Bitmap.createBitmap(bitmap, 0, 0,
-                        bitmap.getWidth(), bitmap.getHeight(), m, true);
-                if(bitmap != converted)
-                {
-                    bitmap.recycle();
-                    bitmap = converted;
-                }
-            }
-            catch(OutOfMemoryError ex)
-            {
-            }
-        }
-        return bitmap;
-    }
 
 }

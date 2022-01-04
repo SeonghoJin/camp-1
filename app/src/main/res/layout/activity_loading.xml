@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
+    android:background="@color/iphone_background"
     android:orientation="vertical">
 
     <ProgressBar
@@ -17,11 +17,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:gravity = "center"
         android:fontFamily="@font/bmdohyeon"
         android:text="KAIST\n안내 백서"
         android:textAlignment="center"
         android:textSize="50dp"
         android:textStyle="bold"
         android:textColor="#69B9FF"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text = "image from @kaist_hobby"
+        android:layout_gravity="center"
+        android:layout_marginTop="63dp"
+        android:textSize="10dp"/>
 
 </LinearLayout>

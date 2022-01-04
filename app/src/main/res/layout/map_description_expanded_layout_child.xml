@@ -14,8 +14,9 @@
         android:textSize="15dp"
         android:layout_margin="10dp"
         android:text=""
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:fontFamily="@font/kopubmedium"
+        android:lineSpacingMultiplier="1.2"
         >
     </TextView>
 </LinearLayout>

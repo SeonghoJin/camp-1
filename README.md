@@ -15,7 +15,8 @@ Team: [Seohyeon Kim](https://github.com/seohyeon0322), [Seongho Jin](https://git
 - Loading Activity 에서 모든 권한을 요청합니다. 
 - 요청하는 권한들은 외부 저장소 작성, 카메라, 전화, 위치 정보 액세스 권한입니다.
  ---
-## **<span style="color:blue">Tab1: Phone (RecyclerView)</span>**
+## **Tab1: Phone (RecyclerView)**
+
 
 ## Features
 1. 연락처 추가
@@ -33,6 +34,20 @@ Dialog가 나타납니다. 썸네일은 사용자가 이름을 입력할 때 변
 
 ## Layout
 - 전화와 연락처 삭제의 레이아웃은 swipelayout 라이브러리를 이용하여 구현했습니다.
+- 연락처를 생성하는 Fragment는 Material 라이브러리의 Bottom Sheet Dialog를 사용하여 구현했습니다.
+- Bottom Sheet Dialog에는 PhoneCreateCallback이라는 Functional Interface를 받아 실행합니다.
+```java
+
+/** 
+ *  Functional Interface  
+ * **/
+package com.example.myapplication.phone;
+
+@FunctionalInterface
+public interface PhoneCreateCallback {
+    void start(String number, String lastName, String firstName);
+}
+```
 
 ## Test Video
 <p align="center"><img src ="./images/phonetest.gif" width = "300" height="" ></p>

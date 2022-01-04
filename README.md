@@ -35,7 +35,7 @@ Dialog가 나타납니다. 썸네일은 사용자가 이름을 입력할 때 변
 ## Layout
 - 전화와 연락처 삭제의 레이아웃은 swipelayout 라이브러리를 이용하여 구현했습니다.
 - 연락처를 생성하는 Fragment는 Material 라이브러리의 Bottom Sheet Dialog를 사용하여 구현했습니다.
-- Bottom Sheet Dialog에는 PhoneCreateCallback이라는 Functional Interface를 받아 실행합니다.
+- Bottom Sheet Dialog에서 완료버튼을 누를시 PhoneCreateCallback 이라는 Functional Interface 타입인 콜백 함수를 실행합니다.
 ```java
 
 /** 

@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity = "center"
-        android:fontFamily="@font/bmdohyeon"
+        android:fontFamily="@font/kopubbold"
         android:text="KAIST\n안내 백서"
         android:textAlignment="center"
         android:textSize="50dp"

@@ -9,10 +9,9 @@
         android:id="@+id/parent_text_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textColor="@color/white"
-        android:textSize="20dp"
-        android:layout_margin="5dp"
+        android:layout_margin="10dp"
+        android:fontFamily="@font/kopubbold"
         android:text="건물 알파벳의 의미"
-        >
-    </TextView>
+        android:textColor="@color/camp_color_1"
+        android:textSize="20dp"></TextView>
 </LinearLayout>

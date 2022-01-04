@@ -22,7 +22,9 @@
             android:layout_gravity="center"
             android:backgroundTint="@color/iphone_settings"
             android:id="@+id/tab_image"
-            ></ImageView>
+            >
+
+        </ImageView>
         <TextView
             android:id="@+id/tab_text"
             android:layout_width="wrap_content"
@@ -32,7 +34,10 @@
             android:gravity="center"
             android:text="지도"
             android:textColor="@color/iphone_settings"
-            android:textSize="8dp"></TextView>
+            android:textSize="8dp"
+            android:fontFamily="@font/kopubmedium">
+
+        </TextView>
     </LinearLayout>
 
 

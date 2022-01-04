@@ -43,6 +43,7 @@
                     android:text="취소"
                     android:background="@color/transparent"
                     android:id="@+id/cancel_action"
+                    android:fontFamily="@font/kopubmedium"
                     >
                 </Button>
                 <TextView
@@ -51,9 +52,10 @@
                     android:textAlignment="center"
                     android:gravity="center"
                     android:text="새로운 연락처"
-                    android:textStyle="bold"
                     android:textColor="@color/black"
                     android:layout_weight="3"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/kopubbold"
                     >
                 </TextView>
                 <Button
@@ -64,6 +66,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:id="@+id/complete_action"
+                    android:fontFamily="@font/kopubmedium"
                     >
                 </Button>
             </LinearLayout>
@@ -91,17 +94,17 @@
                         android:visibility="invisible"
                         >
                     </ImageView>
+
                     <TextView
+                        android:id="@+id/default_profile_word"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:textColor="@color/white"
-                        android:textStyle="bold"
-                        android:text="뷁"
-                        android:textSize="75dp"
-                        android:textAlignment="center"
+                        android:fontFamily="@font/kopubbold"
                         android:gravity="center"
-                        android:id="@+id/default_profile_word"
-                        >
+                        android:text="뷁"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="75dp">
                     </TextView>
                 </RelativeLayout>
             </RelativeLayout>
@@ -125,6 +128,8 @@
                     android:maxLines="1"
                     android:inputType="text"
                     android:id="@+id/input_last_name"
+                    android:fontFamily="@font/kopubmedium"
+
                     >
                 </EditText>
                 <EditText
@@ -136,6 +141,7 @@
                     android:maxLines="1"
                     android:inputType="text"
                     android:id="@+id/input_first_name"
+                    android:fontFamily="@font/kopubmedium"
                     >
                 </EditText>
                 <EditText
@@ -147,6 +153,7 @@
                     android:inputType="phone"
                     android:maxLines="1"
                     android:id="@+id/input_phone_number"
+                    android:fontFamily="@font/kopubmedium"
                     >
                 </EditText>
             </LinearLayout>

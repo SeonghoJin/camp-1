@@ -5,4 +5,16 @@
         android:fontWeight="400"
         android:font="@font/bmdohyeon"/>
 
+    <font android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/kopubbold"/>
+
+    <font android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/kopublight"/>
+
+    <font android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/kopubmedium"/>
+
 </font-family>

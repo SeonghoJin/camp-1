@@ -107,7 +107,7 @@ public class BlurFragment extends Fragment {
             System.out.println(layoutWidth);
             CardView cardView = new CardView(activity);
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(layoutWidth,layoutWidth);
-            layoutParams.setMargins(30, 30, 30, 30);
+            layoutParams.setMargins(35, 30, 30, 30);
             cardView.setLayoutParams(layoutParams);
             cardView.setRadius(20);
 

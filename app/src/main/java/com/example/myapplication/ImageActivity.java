@@ -4,12 +4,9 @@ import static com.example.myapplication.gallery.RotatePicture.exifOrientationToD
 import static com.example.myapplication.gallery.RotatePicture.rotate;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
 import android.media.ExifInterface;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,14 +14,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Gallery;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.myapplication.gallery.ConcreteGalleryDatabase;
 import com.example.myapplication.gallery.GalleryDao;
 import com.example.myapplication.gallery.GalleryFolder;
 import com.example.myapplication.gallery.GalleryViewDialog;
-import com.example.myapplication.gallery.RotatePicture;
+import com.example.myapplication.gallery.ImageInfoDialog;
 import com.github.chrisbanes.photoview.PhotoView;
 
 import java.io.IOException;
@@ -122,51 +118,54 @@ public class ImageActivity extends Activity {
         infoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(ImageActivity.this);
-                builder.setMessage("Information")
-                        .setMessage("Picture" + i+ "\n" + "folder: " + galleryFolder.folderName)
-                        .setCancelable(true)
-                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                            }
-                        });
-                AlertDialog alert = builder.create();
-                alert.show();
+                ImageInfoDialog infoDialog = new ImageInfoDialog(ImageActivity.this, galleryFolder.folderName);
+                infoDialog.show();
+//                AlertDialog.Builder builder = new AlertDialog.Builder(ImageActivity.this);
+//                builder.setMessage("Information")
+//                        .setMessage("Picture" + i+ "\n" + "folder: " + galleryFolder.folderName)
+//                        .setCancelable(true)
+//                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int i) {
+//                            }
+//                        });
+//                AlertDialog alert = builder.create();
+//                alert.show();
+//
+//            }
+//
+//        });
 
-            }
-
-        });
-
-    }
-
-    public void setDeleteButton(ImageButton deleteButton, int i, ArrayList<String> imageIDs) {
-        deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                GalleryViewDialog dialog = new GalleryViewDialog(ImageActivity.this, galleryDao, galleryFolder, galleryadapter, image, i, ImageActivity.this);
-                dialog.show();
             }
         });
     }
 
-    public void createImageView(PhotoView image, ArrayList<String>imgIDs, int imgNum ){
-        Bitmap bmp = BitmapFactory.decodeFile(imgIDs.get(imgNum)); //to save memory
-        bmp = Bitmap.createScaledBitmap(bmp, 600,bmp.getHeight()/(bmp.getWidth()/600), false);
+            public void setDeleteButton(ImageButton deleteButton, int i, ArrayList<String> imageIDs) {
+                deleteButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        GalleryViewDialog dialog = new GalleryViewDialog(ImageActivity.this, galleryDao, galleryFolder, galleryadapter, image, i, ImageActivity.this);
+                        dialog.show();
+                    }
+                });
+            }
 
-        ExifInterface exif = null;
-        try {
-            exif = new ExifInterface(imgIDs.get(imgNum));
-        } catch (IOException e) {
-            e.printStackTrace();
+            public void createImageView(PhotoView image, ArrayList<String> imgIDs, int imgNum) {
+                Bitmap bmp = BitmapFactory.decodeFile(imgIDs.get(imgNum)); //to save memory
+                bmp = Bitmap.createScaledBitmap(bmp, 600, bmp.getHeight() / (bmp.getWidth() / 600), false);
+
+                ExifInterface exif = null;
+                try {
+                    exif = new ExifInterface(imgIDs.get(imgNum));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                int exifOrientation = exif.getAttributeInt(
+                        ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+                int exifDegree = exifOrientationToDegrees(exifOrientation);
+                bmp = rotate(bmp, exifDegree);
+
+                image.setImageBitmap(bmp);
+            }
+
         }
-        int exifOrientation = exif.getAttributeInt(
-                ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
-        int exifDegree = exifOrientationToDegrees(exifOrientation);
-        bmp = rotate(bmp, exifDegree);
-
-        image.setImageBitmap(bmp);
-    }
-
-
-}

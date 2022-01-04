@@ -11,7 +11,7 @@ MadCamp (Week1)
      
 
 # 2. Project Description 
- ### The Android app consists of 3 tabs. Each tab is 
+### The Android app consists of 3 tabs. Each tab is 
 ## 2.1 Tab1: Phone (RecyclerView)
 ---
 We used "Room Database" to save Phone number informations, and RecyclerView to show informations effectively. 
@@ -38,3 +38,16 @@ We used "googlemap API" to show the map.
 <img src = "https://user-images.githubusercontent.com/87957569/148009627-03560bfd-4600-472e-880b-a1a6d9a6f5fe.png" width = "300" height = "300" >
 
 from  instagram @kaist_hobby
+
+# Libraries
+
+- [com.google.android.material:material:1.4.0](https://github.com/material-components/material-components-android/releases)
+- [com.google.android.gms:play-services-maps:18.0.0](https://developers.google.com/android/guides/setup)
+- [com.google.android.gms:play-services-location:18.0.0](https://developers.google.com/android/guides/setup)
+- [com.google.code.gson:gson:2.8.9](https://github.com/google/gson)
+- [androidx.room:room-runtime:2.4.0-alpha03](https://developer.android.com/jetpack/androidx/releases/room?hl=ko)
+- [androidx.cardview:cardview:1.0.0](https://developer.android.com/jetpack/androidx/releases/cardview?hl=ko)
+- [com.chauthai.swipereveallayout:swipe-reveal-layout:1.4.1](https://github.com/chthai64/SwipeRevealLayout)
+- [com.eightbitlab:blurview:1.6.6](https://github.com/Dimezis/BlurView)
+- [com.github.chrisbanes:PhotoView:2.1.4](https://github.com/Baseflow/PhotoView)
+- [com.github.skydoves:expandablelayout:1.0.7](https://github.com/skydoves/ExpandableLayout)

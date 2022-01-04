@@ -40,6 +40,7 @@ import com.example.myapplication.gallery.ConcreteGalleryDatabase;
 import com.example.myapplication.gallery.FolderDialog;
 import com.example.myapplication.gallery.GalleryDao;
 import com.example.myapplication.gallery.GalleryFolder;
+import com.example.myapplication.gallery.TakePicture;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 
@@ -66,6 +67,8 @@ public class GalleryFragment extends Fragment {
     GridView gridView;
     ViewGroup rootView;
     TextView noFolder;
+    int lastedLongClicked = -1;
+    FolderDialog dialog;
 
     @Override
     public void onCreate(Bundle savedInstance) {
@@ -115,10 +118,15 @@ public class GalleryFragment extends Fragment {
         imageAdapter = new GalleryImageAdapter(context, galleryFolders, mMetrics);
         gridView.setAdapter(imageAdapter);
         updateView();
-
-
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        TakePicture.onCaptureCallback(requestCode, resultCode, data, 1, () -> {
+            dialog.addImageAtFile();
+        });
+    }
 
     public void makegridview(Context context, View view){
         gridView = (GridView) view.findViewById(R.id.foldergridview);
@@ -142,14 +150,13 @@ public class GalleryFragment extends Fragment {
         gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                lastedLongClicked = i;
                 if(galleryFolders.get(i).images == null){
                     galleryFolders.get(i).images = new ArrayList<String>(0);
                 }
                 galleryFolder = galleryFolders.get(i);
-                FolderDialog dialog = new FolderDialog(getActivity(), galleryDao, galleryFolders, imageAdapter, gridView, noFolder, i, imageFilePath, getActivity());
+                dialog = new FolderDialog(getActivity(), galleryDao, galleryFolders, imageAdapter, gridView, noFolder, i, imageFilePath, getActivity());
                 dialog.show();
-
-
                 return true;
             }
         });

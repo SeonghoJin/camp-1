@@ -36,6 +36,19 @@ public class TakePicture {
         }
         return imageFilePath;
     }
+
+    public static void onCaptureCallback(int requestCode, int resultCode, Intent intent, int realRequestCode, Runnable runnable) {
+        if(requestCode != realRequestCode){
+            return;
+        }
+
+        if(resultCode != -1){
+            return;
+        }
+
+        runnable.run();
+    }
+
     private static File createImageFile(Activity activity) throws IOException {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
@@ -48,7 +61,9 @@ public class TakePicture {
 
         );
         imageFilePath = image.getAbsolutePath();
-
+        if(image.exists()){
+            image.delete();
+        }
         return image;
     }
 }

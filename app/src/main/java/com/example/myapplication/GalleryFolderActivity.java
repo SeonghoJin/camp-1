@@ -102,26 +102,19 @@ public class GalleryFolderActivity extends Activity {
             @Override
             public void onClick(View view) {
                 imageFilePath = dispatchTakePictureIntent(GalleryFolderActivity.this);
-
-
             }
         });
         return;
     }
 
 
-
-
     @Override public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
-
-        if(requestCode != REQUEST_TAKE_PHOTO){
-            return;
-        }
-        galleryFolder.images.add(imageFilePath);
-        imageAdapter.notifyDataSetChanged();
-        galleryDao.updateFolders(galleryFolder);
-
+        TakePicture.onCaptureCallback(requestCode, resultCode, intent, REQUEST_TAKE_PHOTO, () -> {
+            galleryFolder.images.add(imageFilePath);
+            imageAdapter.notifyDataSetChanged();
+            galleryDao.updateFolders(galleryFolder);
+        });
     }
 
     @Override

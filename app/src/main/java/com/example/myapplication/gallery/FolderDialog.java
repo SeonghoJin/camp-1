@@ -83,21 +83,26 @@ public class FolderDialog extends Dialog {
             }
 
         });
+
         camerabutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 imageFilePath = dispatchTakePictureIntent(activity);
-                galleryFolders.get(position).images.add(imageFilePath);
-                galleryDao.updateFolders(galleryFolders.get(position));
+//                galleryFolders.get(position).images.add(imageFilePath);
+//                galleryDao.updateFolders(galleryFolders.get(position));
+
 //                imageAdapter.notifyDataSetChanged();
 //                galleryDao.updateFolders(galleryFolders.get(position));
+
                 dismiss();
             }
         });
     }
-    
 
+    public void addImageAtFile(){
+        galleryFolders.get(position).images.add(imageFilePath);
+        galleryDao.updateFolders(galleryFolders.get(position));
+    }
 
 }
 

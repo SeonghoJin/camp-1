@@ -32,9 +32,10 @@
             android:layout_height="wrap_content"
             android:text="연락처"
             android:textColor="@color/black"
-            android:textStyle="bold"
             android:textSize="25dp"
             android:layout_marginBottom="10dp"
+            android:fontFamily="@font/kopubbold"
+
             />
 
     </RelativeLayout>

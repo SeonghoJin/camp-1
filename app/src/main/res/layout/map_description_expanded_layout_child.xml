@@ -15,6 +15,7 @@
         android:layout_margin="10dp"
         android:text=""
         android:textColor="@color/white"
+        android:fontFamily="@font/kopubmedium"
         >
     </TextView>
 </LinearLayout>

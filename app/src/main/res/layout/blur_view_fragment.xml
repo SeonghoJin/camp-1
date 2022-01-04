@@ -29,8 +29,11 @@
             android:minWidth="0dp"
             android:minHeight="0dp"
             android:text="확인"
-            android:textColor="@color/iphone_links"></Button>
-        >
+            android:textSize="14dp"
+            android:textColor="@color/iphone_links"
+            android:fontFamily="@font/kopubmedium">
+
+        </Button>
 
         <LinearLayout
             android:layout_width="match_parent"

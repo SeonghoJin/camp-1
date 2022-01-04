@@ -34,6 +34,7 @@
                 android:layout_height="0dp"
                 android:layout_weight = "1"
                 android:background="@color/transparent"
+                android:fontFamily="@font/kopubmedium"
                 android:text="앨범에 사진 추가"/>
 
             <Button
@@ -43,6 +44,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/line_top"
                 android:text = "앨범 삭제"
+                android:fontFamily="@font/kopubmedium"
                 android:textColor = "#FF0000"/>
 
         </LinearLayout>

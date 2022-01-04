@@ -12,7 +12,7 @@ public class Name {
     }
 
     public String getName(){
-        return lastName.getText().toString() + firstName.getText().toString();
+        return  lastName.getText().toString() + firstName.getText().toString();
     }
 
     public String getEllipseName() throws Exception {

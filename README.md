@@ -16,10 +16,6 @@ Team: [Seohyeon Kim](https://github.com/seohyeon0322), [Seongho Jin](https://git
 - 요청하는 권한들은 외부 저장소 작성, 카메라, 전화, 위치 정보 액세스 권한입니다.
  ---
 ## **Tab1: Phone (RecyclerView)**
-<<<<<<< HEAD
-=======
-
->>>>>>> 42bc381e99cfa6919868b0e0360b28297110daf8
 
 ## Features
 1. 연락처 추가

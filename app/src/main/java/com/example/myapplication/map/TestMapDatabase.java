@@ -36,7 +36,17 @@ public class TestMapDatabase implements MapDatabase{
                 .setDescription("음식점")
                 .setResourceId(R.drawable.poolbitmaru)
                 .setId(2)
-                .build()));
+                .build(),
+            new MarkerVO.Builder()
+                    .setLatLng(new LatLng(36.3739782648305, 127.35981698341466))
+                    .setTitle("카이마루")
+                    .setDescription("음식점")
+                    .setResourceId(R.drawable.poolbitmaru)
+                    .setInteriorImagesResourceIds(new int[]{R.drawable.n1, R.drawable.poolbitmaru, R.drawable.saragan})
+                    .setId(5)
+                    .build()
+            )
+    );
 
     @Override
     public ArrayList<MarkerVO> getMarkers() {

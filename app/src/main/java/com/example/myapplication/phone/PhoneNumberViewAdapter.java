@@ -42,7 +42,7 @@ public class PhoneNumberViewAdapter extends RecyclerView.Adapter<PhoneNumberView
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         PhoneNumber currentPhoneNumber = phoneNumbers.get(position);
-        String name = currentPhoneNumber.firstName + currentPhoneNumber.lastName;
+        String name = currentPhoneNumber.lastName + currentPhoneNumber.firstName;
         viewBinderHelper.setOpenOnlyOne(true);
         viewBinderHelper.bind(viewHolder.swipeRevealLayout, name);
         viewBinderHelper.closeLayout(name);
@@ -110,14 +110,11 @@ public class PhoneNumberViewAdapter extends RecyclerView.Adapter<PhoneNumberView
             try {
                 this.name.setText(name);
                 String ellipseName = Name.toEllipseName(name);
-                System.out.println(ellipseName);
                 if(ellipseName.length() > 0){
-//                    setVisible(defaultWord);
                     setInvisible(defaultImage);
                     defaultWord.setText(ellipseName);
                     return;
                 }
-//                setInvisible(defaultWord);
                 setVisible(defaultImage);
 
             } catch (Exception e){

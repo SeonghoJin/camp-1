@@ -10,6 +10,7 @@ public class MarkerVO {
     public String snippets;
     public String description;
     public int imageResourceId;
+    public int[] interiorBuildingImageResourceIds;
     int id;
 
     public MarkerVO(){
@@ -27,6 +28,7 @@ public class MarkerVO {
             marker.id = 0;
             marker.description = "";
             marker.imageResourceId = R.drawable.no_image;
+            marker.interiorBuildingImageResourceIds = new int[]{};
         }
 
         public Builder setLatLng(LatLng latLng){
@@ -56,6 +58,11 @@ public class MarkerVO {
 
         public Builder setResourceId(int id){
             this.marker.imageResourceId = id;
+            return this;
+        }
+
+        public Builder setInteriorImagesResourceIds (int[] ids){
+            this.marker.interiorBuildingImageResourceIds = ids;
             return this;
         }
 

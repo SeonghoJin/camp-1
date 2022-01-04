@@ -24,7 +24,7 @@ public class ImageDialog extends Dialog {
 
     private Context context;
     private GalleryDao galleryDao;
-    private List<GalleryFolder> galleryFolders;
+    private GalleryFolder galleryFolder;
     private FolderImagesAdapter imageAdapter;
     private GridView gridView;
     private TextView noImage;
@@ -32,14 +32,14 @@ public class ImageDialog extends Dialog {
 
     public ImageDialog(Context context,
                        GalleryDao galleryDao,
-                       List<GalleryFolder> galleryFolders,
+                       GalleryFolder galleryFolder,
                        FolderImagesAdapter imageAdapter,
                        GridView gridView, TextView noImage,
                        int position){
         super(context);
         this.context = context;
         this.galleryDao = galleryDao;
-        this.galleryFolders = galleryFolders;
+        this.galleryFolder = galleryFolder;
         this.imageAdapter = imageAdapter;
         this.gridView = gridView;
         this.noImage = noImage;
@@ -60,10 +60,10 @@ public class ImageDialog extends Dialog {
             @Override
             public void onClick(View view) {
                 imageAdapter.delete(position);
-                galleryDao.updateFolders(galleryFolders.get(position));
+                galleryDao.updateFolders(galleryFolder);
                 gridView.clearChoices();
                 gridView.setAdapter(imageAdapter);
-                updateView(galleryFolders.get(position), noImage);
+                updateView(galleryFolder, noImage);
                 dismiss();
             }
         });

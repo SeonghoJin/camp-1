@@ -37,7 +37,7 @@ public class ImageInfoDialog extends Dialog {
             @Override
             public void onClick(View view) {
                 dismiss();
-            }.
+            }
 
         });
 

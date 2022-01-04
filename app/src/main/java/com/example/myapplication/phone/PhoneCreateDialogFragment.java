@@ -29,7 +29,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.util.Arrays;
 
-public class PhoneCreateDialoGFragment extends BottomSheetDialogFragment {
+public class PhoneCreateDialogFragment extends BottomSheetDialogFragment {
 
     View rootView;
     Button cancelButton;

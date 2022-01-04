@@ -12,6 +12,7 @@
         android:layout_margin="10dp"
         android:fontFamily="@font/kopubbold"
         android:text="건물 알파벳의 의미"
-        android:textColor="@color/camp_color_1"
-        android:textSize="20dp"></TextView>
+        android:textColor="@color/white"
+        android:textSize="19dp">
+    </TextView>
 </LinearLayout>

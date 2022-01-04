@@ -2,7 +2,7 @@
 ======================
 
 # 1. Introduction
-## Project : Android app with 3 tabbed structure. 
+## Project : 카이스트 안내 백서
 * period: 2021.12.28 ~ 2022.01.04
 Team: [Seohyeon Kim](https://github.com/seohyeon0322), [Seongho Jin](https://github.com/SeonghoJin)
 

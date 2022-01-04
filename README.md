@@ -15,7 +15,7 @@ Team: [Seohyeon Kim](https://github.com/seohyeon0322), [Seongho Jin](https://git
 - Loading Activity 에서 모든 권한을 요청합니다. 
 - 요청하는 권한들은 외부 저장소 작성, 카메라, 전화, 위치 정보 액세스 권한입니다.
  ---
-## <span style="color: blue"> **Tab1: Phone (RecyclerView)** </span>
+## **<span style="color:blue">Tab1: Phone (RecyclerView)</span>**
 
 ## Features
 1. 연락처 추가

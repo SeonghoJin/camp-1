@@ -161,7 +161,7 @@ public class GalleryFolderActivity extends Activity {
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 ImageDialog imageDialog = new ImageDialog(GalleryFolderActivity.this,
                         galleryDao,
-                        galleryFolders,
+                        galleryFolder,
                         imageAdapter,
                         gridView,
                         noImage,

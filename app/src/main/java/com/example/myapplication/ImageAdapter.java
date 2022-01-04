@@ -70,7 +70,7 @@ public class ImageAdapter extends BaseAdapter {
         int exifDegree = exifOrientationToDegrees(exifOrientation);
         bmp = rotate(bmp, exifDegree);
 
-        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         imageView.setImageBitmap(bmp);
 
         imageView.setLayoutParams(new Gallery.LayoutParams(200,200 ));

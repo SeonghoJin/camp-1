@@ -140,7 +140,6 @@ public class GalleryFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getActivity(), GalleryFolderActivity.class);
 
-                //TODO: If click the folder, send the GalleryFolder name and images. (Using database)
                 String name = galleryFolders.get(i).folderName;
                 intent.putExtra("key", galleryFolders.get(i).id);
                 intent.putExtra("foldername", galleryFolders.get(i).folderName);

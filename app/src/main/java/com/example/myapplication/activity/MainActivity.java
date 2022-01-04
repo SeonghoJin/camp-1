@@ -28,4 +28,7 @@ public class MainActivity extends BaseTabActivity {
         getSupportFragmentManager().beginTransaction().remove(blurFragment).commit();
     }
 
+    @Override
+    public void onBackPressed() {
+    }
 }

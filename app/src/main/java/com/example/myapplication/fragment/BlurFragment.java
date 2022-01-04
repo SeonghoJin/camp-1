@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.text.Layout;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -107,14 +108,15 @@ public class BlurFragment extends Fragment {
             System.out.println(layoutWidth);
             CardView cardView = new CardView(activity);
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(layoutWidth,layoutWidth);
-            layoutParams.setMargins(35, 30, 30, 30);
+            layoutParams.setMargins(10, 30, 10, 30);
+            layoutParams.gravity = Gravity.CENTER;
             cardView.setLayoutParams(layoutParams);
             cardView.setRadius(20);
 
             ImageView imageView = new ImageView(activity);
             imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
             imageView.setImageResource(imagesResourceId);
-            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
 
             cardView.addView(imageView);

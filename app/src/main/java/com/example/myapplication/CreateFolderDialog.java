@@ -6,6 +6,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
@@ -56,7 +57,9 @@ public class CreateFolderDialog extends Dialog {
                 else{
                     noImage.setVisibility(View.GONE);
                 }
-                Toast.makeText(getContext(), "앨범이 생성되었습니다.", Toast.LENGTH_SHORT).show();
+                Toast toast = Toast.makeText(getContext(), "앨범이 생성되었습니다.", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.BOTTOM, 0, 100);
+                toast.show();
                 dismiss();
             }
         });

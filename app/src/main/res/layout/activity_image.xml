@@ -44,7 +44,7 @@
             android:id="@+id/button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#F4F4F8"
+            android:background="@color/iphone_background"
             android:enabled="false" />
 
         <ImageButton
@@ -55,9 +55,11 @@
             android:layout_gravity="end"
             android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
+            android:layout_marginBottom="5dp"
             android:background="@color/transparent"
             android:scaleType="fitXY"
-            android:src="@drawable/ic_information" />
+            android:src="@drawable/ic_information"
+            android:tint="@color/iphone_settings"/>
 
         <ImageButton
             android:id="@+id/deletebutton"
@@ -66,9 +68,11 @@
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
             android:background="@color/transparent"
             android:scaleType="fitXY"
-            android:src="@drawable/trashcan" />
+            android:src="@drawable/trashcan"
+            android:tint="@color/iphone_settings"/>
     </RelativeLayout>
 
 

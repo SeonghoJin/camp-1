@@ -19,6 +19,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -28,6 +29,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private MapView mapView = null;
     private MainActivity activity = null;
     private MapDatabase database;
+    private static final CameraPosition KAIST = new CameraPosition.Builder().target(new LatLng(36.374449190171205, 127.36255722487795))
+            .zoom(15.5f)
+            .bearing(300)
+            .tilt(50)
+            .build();
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -67,12 +73,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 .map((MarkerVO::toMarkerOptions))
                 .forEach((googleMap::addMarker));
 
-        this.database.getMarkers()
-                .stream()
-                .findFirst()
-                .ifPresent((markerVO -> googleMap.moveCamera(CameraUpdateFactory.newLatLng(markerVO.latLng))));
-
-        googleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(KAIST));
 
         googleMap.setOnMarkerClickListener(marker -> {
                 googleMap

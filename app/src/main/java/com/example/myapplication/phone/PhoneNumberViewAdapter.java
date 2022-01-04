@@ -22,12 +22,14 @@ import java.util.List;
 public class PhoneNumberViewAdapter extends RecyclerView.Adapter<PhoneNumberViewAdapter.ViewHolder> {
 
     private List<PhoneNumber> phoneNumbers;
+    private PhoneNumberDao dao;
     private final ViewBinderHelper viewBinderHelper = new ViewBinderHelper();
     private Context context;
 
     public PhoneNumberViewAdapter(List<PhoneNumber> phoneNumbers, Context context) {
         this.context = context;
         this.phoneNumbers = phoneNumbers;
+        this.dao = ConcretePhoneNumberDatabase.getDatabase(context);
     }
 
 
@@ -138,6 +140,7 @@ public class PhoneNumberViewAdapter extends RecyclerView.Adapter<PhoneNumberView
 
         private void delete(int position){
             try {
+                dao.delete(phoneNumbers.get(position));
                 phoneNumbers.remove(position);
                 notifyItemRemoved(position);
             } catch (IndexOutOfBoundsException ex) {

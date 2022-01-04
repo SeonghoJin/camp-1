@@ -1,4 +1,4 @@
-MadCamp (Week1)
+몰입캠프 (Week1)
 ======================
 
 # 1. Introduction
@@ -35,7 +35,7 @@ Dialog가 나타납니다. 썸네일은 사용자가 이름을 입력할 때 변
 - 전화와 연락처 삭제의 레이아웃은 swipelayout 라이브러리를 이용하여 구현했습니다.
 
 ## Test Video
-<p align="center"><img src ="./images/phonetest.gif" ></p>
+<p align="center"><img src ="./images/phonetest.gif" width = "300" height="" ></p>
 
 ---
 
@@ -62,7 +62,7 @@ Dialog가 나타납니다. 썸네일은 사용자가 이름을 입력할 때 변
 
 
 ## Test Video
-<p align="center"><img src = "https://user-images.githubusercontent.com/87957569/148041706-4ea88f64-1e7f-4166-87ed-f380e5a8f9cf.gif" ></p>
+<p align="center"><img src = "https://user-images.githubusercontent.com/87957569/148041706-4ea88f64-1e7f-4166-87ed-f380e5a8f9cf.gif" width = "300" height="" ></p>
 
 
 룸 데이터베이스를 통해서 갤러리의 폴더와 이미지 정보들을 저장했습니다. 앱 내에서 폴더를 생성하는 경우 데이터베이스에 해당 폴더 데이터를 추가합니다. 이 데이터에는 폴더 이름과 폴더의 이미지 경로 arraylist가 포함됩니다. 사진을 찍으면 arraylist에 이미지 경로가 추가되며, 이 사진이 갤러리에 포함됩니다. 
@@ -90,14 +90,14 @@ We used "googlemap API" to show the map.
 ## Layout
 
 ## Test Video
-<p align="center"><img src = "./images/maptest.gif" ></p>
+<p align="center"><img src = "./images/maptest.gif" width = "300" height="" ></p>
 
 
 # Design Reference
 
 
 ## loading image
-<img src = "https://user-images.githubusercontent.com/87957569/148009627-03560bfd-4600-472e-880b-a1a6d9a6f5fe.png" width = "300" height = "300" >
+<p align="center"><img src = "https://user-images.githubusercontent.com/87957569/148009627-03560bfd-4600-472e-880b-a1a6d9a6f5fe.png" width = "300" height = "300" ></p>
 
 from  instagram @kaist_hobby
 

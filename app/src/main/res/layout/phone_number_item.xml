@@ -114,6 +114,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#000000"
+                    android:textAlignment="center"
                     android:text="이름"
                     >
                 </TextView>
@@ -122,7 +123,6 @@
                     android:id="@+id/name"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:layout_margin="3dp"
                     android:textAlignment="center"
                     android:textColor="@color/iphone_links"
                     android:text="asd"
